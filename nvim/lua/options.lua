@@ -7,20 +7,6 @@ o.softtabstop = 2
 
 g.mapleader = ' '
 
-vim.cmd "colorscheme github_dark_default"
-
-
--- fern
-vim.cmd([[
-let hide_dirs  = '^\%(\.git\|node_modules\|dist\)$'  " here you write the dir names
-let hide_files = '\%(\.byebug\|\.ruby-\)\+'    " here you write the file names
-
-let g:fern#default_exclude = hide_dirs . '\|' . hide_files  " here you exclude them
-let g:fern#default_hidden=1
-]])
-
-
-
 vim.cmd("autocmd!")
 
 vim.scriptencoding = 'utf-8'
@@ -47,7 +33,7 @@ vim.opt.smarttab = true
 vim.opt.breakindent = true
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
-vim.opt.wrap = false -- No Wrap lines
+vim.opt.wrap = false         -- No Wrap lines
 vim.opt.backspace = { 'start', 'eol', 'indent' }
 vim.opt.path:append { '**' } -- Finding files - Search down into subfolders
 vim.opt.wildignore:append { '*/node_modules/*' }
@@ -58,9 +44,11 @@ vim.cmd([[let &t_Ce = "\e[4:0m"]])
 
 -- Turn off paste mode when leaving insert
 vim.api.nvim_create_autocmd("InsertLeave", {
-    pattern = '*',
-    command = "set nopaste"
+  pattern = '*',
+  command = "set nopaste"
 })
 
 -- Add asterisks in block comments
 vim.opt.formatoptions:append { 'r' }
+
+vim.cmd "colorscheme github_dark_default"

@@ -55,6 +55,14 @@ augroup my-glyph-palette
   autocmd FileType nerdtree,startify call glyph_palette#apply()
 augroup END
 ]])
+-- fern
+vim.cmd([[
+let hide_dirs  = '^\%(\.git\|node_modules\|dist\)$'  " here you write the dir names
+let hide_files = '\%(\.byebug\|\.ruby-\)\+'    " here you write the file names
+let g:fern#default_exclude = hide_dirs . '\|' . hide_files  " here you exclude them
+let g:fern#default_hidden=1
+]])
+
 
 
 -- telescope

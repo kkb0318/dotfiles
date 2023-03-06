@@ -17,6 +17,7 @@ ts.setup {
     "json",
     "lua",
     "markdown",
+    "markdown_inline",
     "python",
     "rst",
     "terraform",

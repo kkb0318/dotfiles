@@ -31,12 +31,16 @@ packer.startup(function(use)
   use 'jose-elias-alvarez/null-ls.nvim'   -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua.
   use 'williamboman/mason.nvim'           -- installer for LSP. formatter, linster
   use 'williamboman/mason-lspconfig.nvim' -- closes some gaps that exist between mason.nvim and lspconfig
-  use 'glepnir/lspsaga.nvim'              -- LSP UI
   -- snippet with nvim-cmp
   use 'L3MON4D3/LuaSnip'
 
-  -- zen mode
-  use 'folke/zen-mode.nvim'
+  -- lsp UI
+  use 'glepnir/lspsaga.nvim'   -- LSP UI
+  use { "j-hui/fidget.nvim", } -- lsp progress UI
+
+  -- theme
+  use { 'projekt0n/github-nvim-theme' }
+
 
   -- comment out
   use {
@@ -79,6 +83,9 @@ packer.startup(function(use)
   -- highlight other use
   use { "RRethy/vim-illuminate" }
 
+  -- search
+  use { "kevinhwang91/nvim-hlslens" }
+
 
   -- marking
   use "chentoast/marks.nvim"
@@ -105,15 +112,12 @@ packer.startup(function(use)
   -- }
 
   -- status bar
-  -- use {
-  --   'nvim-lualine/lualine.nvim',
-  --   requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-  -- }
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+  }
   use 'akinsho/nvim-bufferline.lua'
 
-
-  -- layout
-  -- use { 'j-hui/fidget.nvim' }
 
   -- fuzzy finder
   use {
@@ -126,13 +130,20 @@ packer.startup(function(use)
   use 'lewis6991/gitsigns.nvim'
   use 'dinhhuy258/git.nvim' -- simplie Clone of vim-fugitive
 
+  -- zen mode
+  use 'folke/zen-mode.nvim'
 
 
   -- markdown
   use({
     "iamcco/markdown-preview.nvim",
-    run = function() vim.fn["mkdp#util#install"]() end,
+    run = "cd app && npm install",
+    setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
+    ft = { "markdown" },
   })
+
+  -- plant uml
+  use({ "aklt/plantuml-syntax" })
 
   -- AI
   -- use { 'zalgo3/vim-chatgpt', branch = 'nvim' }
@@ -142,9 +153,6 @@ packer.startup(function(use)
       "MunifTanjim/nui.nvim",
     }
   })
-
-  -- theme
-  use { 'projekt0n/github-nvim-theme' }
 end)
 
 

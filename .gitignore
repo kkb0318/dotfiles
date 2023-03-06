@@ -71,5 +71,7 @@ fish/functions
 fish/completions
 fish/conf.d
 
+# tmux plugions
+tmux/plugins
 
 packer_compiled.lua
