@@ -10,6 +10,7 @@ vim.cmd [[packadd packer.nvim]]
 packer.startup(function(use)
   use 'wbthomason/packer.nvim'
 
+
   -- surround
   use({
     'kylechui/nvim-surround',
@@ -141,6 +142,7 @@ packer.startup(function(use)
     setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
     ft = { "markdown" },
   })
+  use "mattn/vim-maketable"
 
   -- plant uml
   use({ "aklt/plantuml-syntax" })

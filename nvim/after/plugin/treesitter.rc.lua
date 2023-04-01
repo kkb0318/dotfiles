@@ -13,7 +13,9 @@ ts.setup {
   ensure_installed = {
     "fish",
     "css",
+    "cpp",
     "html",
+    "rust",
     "json",
     "lua",
     "markdown",
