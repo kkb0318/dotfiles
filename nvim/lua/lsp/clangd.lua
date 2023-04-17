@@ -1,4 +1,7 @@
 local config = {
+  settings = {
+    offset_encoding = 'utf-16'
+  }
 }
 
 return {

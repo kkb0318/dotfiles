@@ -40,7 +40,10 @@ packer.startup(function(use)
   use { "j-hui/fidget.nvim", } -- lsp progress UI
 
   -- theme
-  use { 'projekt0n/github-nvim-theme' }
+  use {
+    'projekt0n/github-nvim-theme',
+    tag = 'v0.0.7'
+  }
 
 
   -- comment out
@@ -94,6 +97,8 @@ packer.startup(function(use)
   -- auto tag
   use { "windwp/nvim-autopairs" }
   use { "windwp/nvim-ts-autotag" }
+  -- bracket
+  use { "hrsh7th/nvim-insx" }
 
   -- filer with fonts
   -- require https://github.com/ryanoasis/nerd-fonts
