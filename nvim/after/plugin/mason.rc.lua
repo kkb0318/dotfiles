@@ -6,7 +6,7 @@ if (not status2) then return end
 
 
 local lsp_servers = {
-  "gopls", "tsserver", "pylsp", "yamlls", "cssls", "jsonls", "clangd", "terraformls", "rust_analyzer", "lua_ls"
+  "gopls", "tsserver", "pyright", "yamlls", "cssls", "jsonls", "clangd", "terraformls", "rust_analyzer", "lua_ls"
 }
 
 local tools = {
