@@ -154,12 +154,13 @@ packer.startup(function(use)
 
   -- AI
   -- use { 'zalgo3/vim-chatgpt', branch = 'nvim' }
-  use({
-    "jackMort/ChatGPT.nvim",
-    requires = {
-      "MunifTanjim/nui.nvim",
-    }
-  })
+  -- use({
+  --   "jackMort/ChatGPT.nvim",
+  --   requires = {
+  --     "MunifTanjim/nui.nvim",
+  --   }
+  -- })
+  use "github/copilot.vim"
 end)
 
 
