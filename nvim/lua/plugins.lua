@@ -71,6 +71,14 @@ packer.startup(function(use)
   -- use {'haya14busa/vim-edgemotion'}
   --
 
+  -- ddu
+  use 'vim-denops/denops.vim'
+  use 'Shougo/ddu.vim'
+  use 'Shougo/ddu-ui-filer'
+  use 'Shougo/ddu-source-file'
+  use 'Shougo/ddu-kind-file'
+  use 'Shougo/ddu-column-filename'
+
   -- doc generator
   use 'danymat/neogen'
 
