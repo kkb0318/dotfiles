@@ -43,10 +43,10 @@ local on_attach = function(client, bufnr)
   require("illuminate").on_attach(client)
 
   -- Short-circuit for Helm template files
-  if vim.bo[bufnr].buftype ~= '' or vim.bo[bufnr].filetype == 'helm' then
-    require('user').diagnostic.remove(bufnr)
-    return
-  end
+  -- if vim.bo[bufnr].buftype ~= '' or vim.bo[bufnr].filetype == 'helm' then
+  --   require('user').diagnostic.remove(bufnr)
+  --   return
+  -- end
 
   -- Mappings.
   local opts = { noremap = true, silent = true }
@@ -143,6 +143,45 @@ for _, ls in pairs(packages) do
   nvim_lsp[ls].setup(opts)
   -- print(ls) -- check run :source
 end
+
+local handlers = {
+  definition = vim.lsp.handlers["textDocument/definition"],
+}
+
+-- -- `textDocument/definition` メッセージハンドラ。LSPサーバから定義の位置情報が返されたときに呼び出される。
+-- vim.lsp.handlers["textDocument/definition"] = function(err, result, ctx, config)
+--   if err then
+--     vim.notify(err, vim.log.levels.ERROR)
+--     return
+--   end
+--   if not result then
+--     return
+--   end
+--   -- result type is `Location | Location[] | LocationLink[]`
+--   if #result == 1 or result.uri then
+--     -- single location
+--     -- handlers.definition(err, result, ctx, config)
+--     require("rc.ddu").start({
+--       {
+--         name = "lsp_definitions",
+--         params = {
+--           locations = result,
+--         },
+--       },
+--     })
+--   else
+--     -- 複数の位置が得られた場合、`ddu` を使ってそれらを表示・選択できるようにする。
+--     require("rc.ddu").start({
+--       {
+--         name = "lsp_definitions",
+--         params = {
+--           locations = result,
+--         },
+--       },
+--     })
+--   end
+-- end
+
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
