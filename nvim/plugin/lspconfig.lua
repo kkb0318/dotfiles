@@ -144,9 +144,9 @@ for _, ls in pairs(packages) do
   -- print(ls) -- check run :source
 end
 
-local handlers = {
-  definition = vim.lsp.handlers["textDocument/definition"],
-}
+-- local handlers = {
+--   definition = vim.lsp.handlers["textDocument/definition"],
+-- }
 
 -- -- `textDocument/definition` メッセージハンドラ。LSPサーバから定義の位置情報が返されたときに呼び出される。
 -- vim.lsp.handlers["textDocument/definition"] = function(err, result, ctx, config)
