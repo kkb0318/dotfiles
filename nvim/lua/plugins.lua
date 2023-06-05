@@ -40,10 +40,12 @@ packer.startup(function(use)
   use { "j-hui/fidget.nvim", } -- lsp progress UI
 
   -- theme
-  use {
-    'projekt0n/github-nvim-theme',
-    tag = 'v0.0.7'
-  }
+  -- use {
+  --   'projekt0n/github-nvim-theme',
+  --   tag = 'v0.0.7'
+  -- }
+  -- use { "bluz71/vim-nightfly-colors", as = "nightfly" }
+  use { "bluz71/vim-moonfly-colors", as = "moonfly" }
 
 
   -- comment out
@@ -59,7 +61,7 @@ packer.startup(function(use)
     requires = "nvim-lua/plenary.nvim"
   }
 
-  -- helm
+  -- helm highlight
   use 'towolf/vim-helm'
 
   -- use {'antoinemadec/coc-fzf', branch = 'release'}
@@ -72,12 +74,12 @@ packer.startup(function(use)
   --
 
   -- ddu
-  use 'vim-denops/denops.vim'
-  use 'Shougo/ddu.vim'
-  use 'Shougo/ddu-ui-filer'
-  use 'Shougo/ddu-source-file'
-  use 'Shougo/ddu-kind-file'
-  use 'Shougo/ddu-column-filename'
+  -- use 'vim-denops/denops.vim'
+  -- use 'Shougo/ddu.vim'
+  -- use 'Shougo/ddu-ui-filer'
+  -- use 'Shougo/ddu-source-file'
+  -- use 'Shougo/ddu-kind-file'
+  -- use 'Shougo/ddu-column-filename'
 
   -- doc generator
   use 'danymat/neogen'
