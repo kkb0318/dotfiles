@@ -44,8 +44,8 @@ packer.startup(function(use)
   --   'projekt0n/github-nvim-theme',
   --   tag = 'v0.0.7'
   -- }
-  -- use { "bluz71/vim-nightfly-colors", as = "nightfly" }
-  use { "bluz71/vim-moonfly-colors", as = "moonfly" }
+  use { "bluz71/vim-nightfly-colors", as = "nightfly" }
+  -- use { "bluz71/vim-moonfly-colors", as = "moonfly" }
 
 
   -- comment out

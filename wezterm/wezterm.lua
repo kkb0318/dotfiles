@@ -76,9 +76,9 @@ local local_config = load_local_config("local")
 --- Config
 ---------------------------------------------------------------
 local config = {
-  -- font = wezterm.font("Cica"),
+  font = wezterm.font("Cica"),
+  -- font = wezterm.font("Hack Nerd Font"),
   -- font_size = 10.0,
-  font = wezterm.font("Hack Nerd Font"),
   -- font_size = 8.5,
   -- cell_width = 1.1,
   -- line_height = 1.1,
