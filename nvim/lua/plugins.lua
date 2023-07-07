@@ -159,6 +159,9 @@ packer.startup(function(use)
   })
   use "mattn/vim-maketable"
 
+  -- increment
+  use "monaqa/dial.nvim"
+
   -- plant uml
   use({ "aklt/plantuml-syntax" })
 
