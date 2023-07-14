@@ -26,7 +26,7 @@ null_ls.setup {
     null_ls.builtins.diagnostics.flake8,
     -- null_ls.builtins.diagnostics.mypy,
     -- gitsigns
-    null_ls.builtins.code_actions.gitsigns,
+    -- null_ls.builtins.code_actions.gitsigns,
     -- tf
     -- null_ls.builtins.formatting.terraform_fmt,
     null_ls.builtins.diagnostics.jsonlint,
