@@ -36,8 +36,12 @@ packer.startup(function(use)
   use 'L3MON4D3/LuaSnip'
 
   -- lsp UI
-  use 'glepnir/lspsaga.nvim'   -- LSP UI
-  use { "j-hui/fidget.nvim", } -- lsp progress UI
+  use 'glepnir/lspsaga.nvim' -- LSP UI
+  use {
+    "j-hui/fidget.nvim",
+    tag = "legacy",
+    event = "VimEnter",
+  }
 
   -- theme
   -- use {
