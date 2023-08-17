@@ -10,6 +10,7 @@ local config = {
         unusedparams = true,
       },
       staticcheck = true,
+      gofumpt = true,
     },
   },
 }

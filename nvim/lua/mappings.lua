@@ -10,7 +10,7 @@ keymap.set('n', '-', '<C-x>')
 --vim.api.nvim_create_user_command('W', 'w !sudo tee > /dev/null %', {})
 
 -- New tab
-keymap.set('n', 'te', ':tabedit')
+keymap.set('n', 'te', ':tabedit<CR>')
 -- Split window
 keymap.set('n', 'ss', ':split<Return><C-w>w')
 keymap.set('n', 'sv', ':vsplit<Return><C-w>w')

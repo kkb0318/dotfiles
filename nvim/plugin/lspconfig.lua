@@ -18,17 +18,20 @@ local enable_format_on_save = function(_, bufnr)
   })
 end
 
-local enable_format_on_save_go = function(_, bufnr)
-  vim.api.nvim_clear_autocmds({ group = augroup_format, buffer = bufnr })
-  vim.api.nvim_create_autocmd("BufWritePre", {
-    group = augroup_format,
-    pattern = '*.go',
-    callback = function()
-      vim.lsp.buf.format({ bufnr = bufnr })
-      vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true })
-    end,
-  })
-end
+
+-- TODO: deprecated
+-- local enable_format_on_save_go = function(_, bufnr)
+--   vim.api.nvim_clear_autocmds({ group = augroup_format, buffer = bufnr })
+--   vim.api.nvim_create_autocmd("BufWritePre", {
+--     group = augroup_format,
+--     pattern = '*.go',
+--     callback = function()
+--       vim.lsp.buf.format({ bufnr = bufnr })
+--       vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true })
+--     end,
+--   })
+-- end
+
 
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
@@ -103,16 +106,23 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local function make_config(server_name)
   -- Setup base config for each server.
   local c = {}
-  if server_name == "gopls" then
-    c.on_attach = function(client, bufnr)
-      on_attach(client, bufnr)
-      enable_format_on_save_go(client, bufnr)
-    end
-  else
-    c.on_attach = function(client, bufnr)
-      on_attach(client, bufnr)
-      enable_format_on_save(client, bufnr)
-    end
+
+  -- TODO: deprecated
+  -- if server_name == "gopls" then
+  --   c.on_attach = function(client, bufnr)
+  --     on_attach(client, bufnr)
+  --     enable_format_on_save_go(client, bufnr)
+  --   end
+  -- else
+  --   c.on_attach = function(client, bufnr)
+  --     on_attach(client, bufnr)
+  --     enable_format_on_save(client, bufnr)
+  --   end
+  -- end
+
+  c.on_attach = function(client, bufnr)
+    on_attach(client, bufnr)
+    enable_format_on_save(client, bufnr)
   end
   c.capabilities = capabilities
 

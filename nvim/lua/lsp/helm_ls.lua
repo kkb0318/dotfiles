@@ -1,5 +1,5 @@
 local config = {
-  filetypes = { 'helm' },
+  filetypes = { "helm" },
   cmd = { "helm_ls", "serve" },
 }
 
