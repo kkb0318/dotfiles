@@ -68,6 +68,14 @@ packer.startup(function(use)
   -- helm highlight
   use 'towolf/vim-helm'
 
+  -- completion
+  use {
+    'gelguy/wilder.nvim',
+    config = function()
+      -- config goes here
+    end,
+  }
+
   -- use {'antoinemadec/coc-fzf', branch = 'release'}
   -- use {
   --   'neovim/nvim-lspconfig'
