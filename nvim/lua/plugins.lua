@@ -12,14 +12,14 @@ packer.startup(function(use)
 
 
   -- surround
-  use({
-    'kylechui/nvim-surround',
-    tag = "*",
-    config = function()
-      require("nvim-surround").setup({
-      })
-    end
-  })
+  -- use({
+  --   'kylechui/nvim-surround',
+  --   tag = "*",
+  --   config = function()
+  --     require("nvim-surround").setup({
+  --     })
+  --   end
+  -- })
 
   -- lsp (like VS Code)
   -- use {'neoclide/coc.nvim', branch = 'release'}
@@ -117,8 +117,8 @@ packer.startup(function(use)
   use "chentoast/marks.nvim"
 
   -- auto tag
-  use { "windwp/nvim-autopairs" }
-  use { "windwp/nvim-ts-autotag" }
+  -- use { "windwp/nvim-autopairs" }
+  -- use { "windwp/nvim-ts-autotag" }
   -- bracket
   use { "hrsh7th/nvim-insx" }
 
