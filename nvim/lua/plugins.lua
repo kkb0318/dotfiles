@@ -97,9 +97,9 @@ packer.startup(function(use)
   use 'danymat/neogen'
 
   -- filer
-  use 'lambdalisue/fern.vim'
-  -- use 'lambdalisue/fern-git-status.vim'
-  -- use { 'LumaKernel/fern-mapping-reload-all.vim', requires = { 'lambdalisue/fern.vim' } }
+  -- use 'lambdalisue/fern.vim'
+  ---- use 'lambdalisue/fern-git-status.vim'
+  ---- use { 'LumaKernel/fern-mapping-reload-all.vim', requires = { 'lambdalisue/fern.vim' } }
 
   -- highlight
   use({
@@ -110,27 +110,27 @@ packer.startup(function(use)
   use { "RRethy/vim-illuminate" }
 
   -- search
-  use { "kevinhwang91/nvim-hlslens" }
+  -- use { "kevinhwang91/nvim-hlslens" }
 
 
   -- marking
-  use "chentoast/marks.nvim"
+  -- use "chentoast/marks.nvim"
 
   -- auto tag
   -- use { "windwp/nvim-autopairs" }
   -- use { "windwp/nvim-ts-autotag" }
   -- bracket
-  use { "hrsh7th/nvim-insx" }
+  -- use { "hrsh7th/nvim-insx" }
 
   -- filer with fonts
   -- require https://github.com/ryanoasis/nerd-fonts
   -- brew tap homebrew/cask-fonts
   -- brew install --cask font-hack-nerd-font
-  use 'lambdalisue/nerdfont.vim'
-  use 'lambdalisue/fern-renderer-nerdfont.vim'
-  -- filer icon with color
-  use 'lambdalisue/glyph-palette.vim'
-  use 'kyazdani42/nvim-web-devicons' -- File icons
+  -- use 'lambdalisue/nerdfont.vim'
+  -- use 'lambdalisue/fern-renderer-nerdfont.vim'
+  -- -- filer icon with color
+  -- use 'lambdalisue/glyph-palette.vim'
+  -- use 'kyazdani42/nvim-web-devicons' -- File icons
 
 
   -- window
@@ -144,7 +144,7 @@ packer.startup(function(use)
     'nvim-lualine/lualine.nvim',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
-  use 'akinsho/nvim-bufferline.lua'
+  -- use 'akinsho/nvim-bufferline.lua'
 
 
   -- fuzzy finder
@@ -155,27 +155,27 @@ packer.startup(function(use)
 
   -- git
   -- use { 'tpope/vim-fugitive' }
-  use 'lewis6991/gitsigns.nvim'
-  use 'dinhhuy258/git.nvim' -- simplie Clone of vim-fugitive
+  -- use 'lewis6991/gitsigns.nvim'
+  -- use 'dinhhuy258/git.nvim' -- simplie Clone of vim-fugitive
 
   -- zen mode
-  use 'folke/zen-mode.nvim'
+  -- use 'folke/zen-mode.nvim'
 
 
   -- markdown
-  use({
-    "iamcco/markdown-preview.nvim",
-    run = "cd app && npm install",
-    setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
-    ft = { "markdown" },
-  })
-  use "mattn/vim-maketable"
+  -- use({
+  --   "iamcco/markdown-preview.nvim",
+  --   run = "cd app && npm install",
+  --   setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
+  --   ft = { "markdown" },
+  -- })
+  -- use "mattn/vim-maketable"
 
   -- increment
-  use "monaqa/dial.nvim"
+  -- use "monaqa/dial.nvim"
 
   -- plant uml
-  use({ "aklt/plantuml-syntax" })
+  -- use({ "aklt/plantuml-syntax" })
 
   -- AI
   -- use { 'zalgo3/vim-chatgpt', branch = 'nvim' }
@@ -185,7 +185,7 @@ packer.startup(function(use)
   --     "MunifTanjim/nui.nvim",
   --   }
   -- })
-  use "github/copilot.vim"
+  -- use "github/copilot.vim"
 end)
 
 
