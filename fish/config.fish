@@ -11,3 +11,6 @@ set -x PATH $PATH $HOME/go/bin
 alias tree='tree -a -I "\.DS_Store|\.git|node_modules|vendor\/bundle" -N'
 set -gx VOLTA_HOME "$HOME/.volta"
 set -gx PATH "$VOLTA_HOME/bin" $PATH
+
+# tmux color. install https://gist.github.com/bbqtd/a4ac060d6f6b9ea6fe3aabe735aa9d95
+export TERM="tmux-256color"
