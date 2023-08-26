@@ -11,6 +11,7 @@ local spec = {
     -- "hrsh7th/cmp-nvim-lua",
     "windwp/nvim-autopairs",
     "onsails/lspkind-nvim",
+    "L3MON4D3/LuaSnip",
   },
   config = function()
     local cmp = require("cmp")
