@@ -20,6 +20,7 @@ local spec = {
           require("fidget").setup()
         end,
       },
+      "RRethy/vim-illuminate"
     },
     config = function()
       local lspconfig       = require("lspconfig")

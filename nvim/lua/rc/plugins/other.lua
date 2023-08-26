@@ -22,6 +22,9 @@ local spec = {
   {
     "kevinhwang91/nvim-hlslens", -- search
   },
+  {
+    "danymat/neogen", -- doc generator
+  },
 }
 
 return spec
