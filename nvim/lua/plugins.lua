@@ -66,15 +66,15 @@ packer.startup(function(use)
   -- }
 
   -- helm highlight
-  use 'towolf/vim-helm'
+  -- use 'towolf/vim-helm'
 
   -- completion
-  use {
-    'gelguy/wilder.nvim',
-    config = function()
-      -- config goes here
-    end,
-  }
+  -- use {
+  --   'gelguy/wilder.nvim',
+  --   config = function()
+  --     -- config goes here
+  --   end,
+  -- }
 
   -- use {'antoinemadec/coc-fzf', branch = 'release'}
   -- use {
@@ -107,7 +107,7 @@ packer.startup(function(use)
   --   run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
   -- })
   -- highlight other use
-  use { "RRethy/vim-illuminate" }
+  -- use { "RRethy/vim-illuminate" }
 
   -- search
   -- use { "kevinhwang91/nvim-hlslens" }

@@ -72,11 +72,15 @@ local spec = {
         end,
       })
 
+      -- LSP Saga settings
       local saga = require("lspsaga")
       saga.setup {
-        server_filetype_map = {
-          typescript = 'typescript'
-        }
+        symbol_in_winbar = {
+          enable = false
+        },
+        lightbulb = {
+          enable = false
+        },
       }
       local opts = { noremap = true, silent = true }
       vim.keymap.set('n', '<C-j>', '<Cmd>Lspsaga diagnostic_jump_next<CR>', opts)
