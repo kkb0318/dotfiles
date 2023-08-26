@@ -50,7 +50,3 @@ vim.api.nvim_create_autocmd("InsertLeave", {
 
 -- Add asterisks in block comments
 vim.opt.formatoptions:append { 'r' }
-
--- vim.cmd "colorscheme github_dark_default"
-vim.cmd [[colorscheme nightfly]]
--- vim.cmd [[colorscheme moonfly]]
