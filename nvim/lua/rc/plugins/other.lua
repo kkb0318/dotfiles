@@ -20,7 +20,12 @@ local spec = {
     "chentoast/marks.nvim", -- marking
   },
   {
-    "kevinhwang91/nvim-hlslens", -- search
+    "kevinhwang91/nvim-hlslens",
+    event = "VeryLazy",
+    config = function()
+      local hlslens = require("hlslens")
+      hlslens.setup({})
+    end,
   },
   {
     "danymat/neogen", -- doc generator

@@ -12,7 +12,30 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("rc.plugins", {
-  change_detection = {
-    enabled = false,
+  dev = {
+    path = "~/.local/src",
   },
+  lockfile = vim.fn.stdpath("config") .. "/lua/plugins/lazy-lock.json",
+  -- ui = {
+  --   size = { width = 0.8, height = 0.8 },
+  --   wrap = true,
+  --   border = "shadow",
+  -- },
+  -- performance = {
+  --   cache = {
+  --     enabled = true,
+  --   },
+  --   reset_packpath = true,
+  --   rtp = {
+  --     disabled_plugins = {
+  --       "gzip",
+  --       "matchparen",
+  --       "netrwPlugin",
+  --       "tarPlugin",
+  --       "tohtml",
+  --       "tutor",
+  --       "zipPlugin",
+  --     },
+  --   },
+  -- },
 })

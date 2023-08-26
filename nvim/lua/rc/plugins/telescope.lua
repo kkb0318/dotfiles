@@ -12,13 +12,6 @@ local spec = {
     local fb_actions = require "telescope".extensions.file_browser.actions
     telescope.setup({
       defaults = {
-        layout_config = {
-          anchor = "center",
-          height = 0.8,
-          width = 0.9,
-          preview_width = 0.6,
-          prompt_position = "bottom",
-        },
         mappings = {
           i = {
             ["<esc>"] = tele_actions.close,
