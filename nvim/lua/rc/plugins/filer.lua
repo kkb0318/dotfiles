@@ -11,7 +11,7 @@ local spec = {
       "lambdalisue/fern-renderer-nerdfont.vim",
       -- filer icon with color
       "lambdalisue/glyph-palette.vim",
-      "kyazdani42/nvim-web-devicons", -- File icons
+      "nvim-tree/nvim-web-devicons", -- File icons
     },
     cmd = "Fern",
     init = function()

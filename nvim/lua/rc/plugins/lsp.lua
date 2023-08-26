@@ -1,4 +1,4 @@
-local helper = require("helper.lsp")
+local helper = require("helpers.lsp")
 
 ---@type LazySpec
 local spec = {
