@@ -5,7 +5,7 @@ local spec = {
   config = function()
     vim.fn["ddu#custom#patch_global"]({
       sourceOptions = {
-        ["_"] = {
+        _ = {
           matchers = { "matcher_substring" }
         }
       }

@@ -2,7 +2,7 @@ local g = vim.g
 local o = vim.o
 
 
--- タブに関して
+-- tab
 o.softtabstop = 2
 
 g.mapleader = ' '

@@ -16,7 +16,23 @@ local spec = {
       --     path = vim.fn.expand("~")
       --   }
       -- },
+      --
     })
+    local hoge = "hoge"
+    vim.fn["ddu#custom#patch_local"](hoge, {
+      sources =
+      {
+        {
+          name = 'file_rec',
+          params = {}
+        }
+      }
+    }
+    )
+    vim.keymap.set("n", "<leader>faf", function()
+      vim.fn["ddu#start"]({ name = hoge })
+    end, { remap = false, desc = "Start ddu: " .. hoge })
+
   end,
 }
 
