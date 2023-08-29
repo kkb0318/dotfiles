@@ -1,16 +1,11 @@
+local helper = require("helpers.ddu")
+
 ---@type LazySpec
 local spec = {
   "Shougo/ddu-source-file_rec",
   dependencies = "ddu.vim",
   config = function()
     vim.fn["ddu#custom#patch_global"]({
-      sources =
-      {
-        {
-          name = 'file_rec',
-          params = {}
-        }
-      }
       -- sourceOptions = {
       --   file_rec = {
       --     path = vim.fn.expand("~")
@@ -18,21 +13,17 @@ local spec = {
       -- },
       --
     })
-    local hoge = "hoge"
-    vim.fn["ddu#custom#patch_local"](hoge, {
-      sources =
-      {
+    helper.setup("hoge", {
+        sources =
         {
-          name = 'file_rec',
-          params = {}
+          {
+            name = 'file_rec',
+            params = {}
+          }
         }
-      }
-    }
+      },
+      "<leader>faf"
     )
-    vim.keymap.set("n", "<leader>faf", function()
-      vim.fn["ddu#start"]({ name = hoge })
-    end, { remap = false, desc = "Start ddu: " .. hoge })
-
   end,
 }
 
