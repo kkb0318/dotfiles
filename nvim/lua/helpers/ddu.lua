@@ -18,17 +18,11 @@ end
 
 ---@param name string A name of the local option.
 ---@param dict table<string, any> ddu options.
----@param startkey string |string[]
+---@param startkey string 
 function M.setup(name, dict, startkey)
   vim.fn["ddu#custom#patch_local"](name, dict)
-    local keys = startkey or {}
-    if type(keys) == "string" then
-      keys = { keys }
-    end
-    for _, key in pairs(keys) do
-      vim.keymap.set("n", key, function()
-        vim.fn["ddu#start"]({ name = name })
-      end, { remap = false, desc = "Start ddu: " .. name })
-    end
+  vim.keymap.set("n", startkey, function()
+    vim.fn["ddu#start"]({ name = name })
+  end, { remap = false, desc = "Start ddu: " .. name })
 end
 return M
