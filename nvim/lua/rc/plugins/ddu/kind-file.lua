@@ -1,9 +1,11 @@
+local helper = require("helpers.ddu")
+
 ---@type LazySpec
 local spec = {
   "Shougo/ddu-kind-file",
   dependencies = "ddu.vim",
   config = function()
-    vim.fn["ddu#custom#patch_global"]({
+    helper.patch_global({
       kindOptions = {
         file = {
           defaultAction = "open",

@@ -1,5 +1,11 @@
 local M = {}
 
+---@param dict table
+function M.patch_global(dict)
+  vim.fn["ddu#custom#patch_global"](dict)
+end
+
+
 ---@param name string
 ---@param params? table
 ---@return function

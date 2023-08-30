@@ -5,7 +5,7 @@ local spec = {
   "Shougo/ddu-source-file_rec",
   dependencies = "ddu.vim",
   config = function()
-    vim.fn["ddu#custom#patch_global"]({
+    helper.patch_global({
       -- sourceOptions = {
       --   file_rec = {
       --     path = vim.fn.expand("~")

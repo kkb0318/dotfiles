@@ -1,9 +1,11 @@
+local helper = require("helpers.ddu")
+
 ---@type LazySpec
 local spec = {
   "Shougo/ddu-filter-matcher_substring",
   dependencies = "ddu.vim",
   config = function()
-    vim.fn["ddu#custom#patch_global"]({
+    helper.patch_global({
       sourceOptions = {
         _ = {
           matchers = { "matcher_substring" }
