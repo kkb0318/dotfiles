@@ -46,8 +46,27 @@ local spec = {
         nmap("/", helper.action("openFilterWindow"))
         nmap("<esc>", helper.action("quit"))
         nmap("<cr>", helper.action("itemAction"))
-        nmap(">", helper.action("expandItem"))
+        nmap("l", helper.action("expandItem"))
+        nmap("h", helper.action("collapseItem"))
         nmap("+", helper.action("chooseAction"))
+      end,
+    })
+    vim.api.nvim_create_autocmd("FileType", {
+      group = group,
+      pattern = "ddu-ff-filter",
+      callback = function()
+        vim.opt_local.cursorline = false
+        local imap = function(lh, rh, opt)
+          local option = vim.tbl_extend("keep", opt or {}, { nowait = true, buffer = true, silent = true, remap = false })
+          vim.keymap.set("i", lh, rh, option)
+        end
+        imap("<esc>", "<esc>dd<cmd>call ddu#ui#do_action('closeFilterWindow')<cr>")
+        imap("<cr>", "<esc><cmd>call ddu#ui#do_action('leaveFilterWindow')<cr>")
+        imap("<C-A>", "<Home>")
+        imap("<C-F>", "<Right>")
+        imap("<C-B>", "<Left>")
+        imap("<C-D>", "<Del>")
+        imap("<C-H>", "<BS>", { remap = true })
       end,
     })
   end,
