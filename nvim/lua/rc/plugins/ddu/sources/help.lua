@@ -1,16 +1,19 @@
+local helper = require("helpers.ddu")
+
 ---@type LazySpec
 local spec = {
-  "Shougo/ddu-kind-file",
+  "matsui54/ddu-source-help",
   dependencies = "ddu.vim",
   config = function()
-    vim.fn["ddu#custom#patch_global"]({
+    helper.setup("help", {
+      sources = { { name = "help" } },
       kindOptions = {
-        file = {
+        help = {
           defaultAction = "open",
         },
       },
-    })
-  end,
+    }, ";h")
+  end
 }
 
 return spec
