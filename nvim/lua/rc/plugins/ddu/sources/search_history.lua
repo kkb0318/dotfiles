@@ -6,10 +6,10 @@ local spec = {
     "uga-rosa/ddu-source-search_history",
     dependencies = { "ddu.vim" },
     config = function()
-      helper.setup("search_history", {
+      helper.setup("search-history", {
         sources = { { name = "search_history" } },
         kindOptions = {
-          _ = {
+          search_history = {
             defaultAction = "execute",
           },
         },
