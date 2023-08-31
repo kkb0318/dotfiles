@@ -30,10 +30,45 @@ local spec = {
             { "&wrap",       0 },
             { "&scrolloff",  0 },
           },
+          highlights = {
+            filterText = "dduFilter",
+            floating = "Normal",
+            floatingCursorLine = "dduCursorLine",
+            floatingBorder = "dduBorder",
+            prompt = "dduPrompt",
+          },
           ignoreEmpty = true,
         },
       },
     })
+    local function resize()
+      local lines = vim.opt.lines:get()
+      local height, row = math.floor(lines * 0.8), math.floor(lines * 0.1)
+      local columns = vim.opt.columns:get()
+      local width, col = math.floor(columns * 0.8), math.floor(columns * 0.1)
+      local previewWidth = math.floor(width / 2)
+
+      helper.patch_global({
+        uiParams = {
+          ff = {
+            winHeight = height,
+            winRow = row,
+            winWidth = width,
+            winCol = col,
+            previewHeight = height,
+            previewRow = row,
+            previewWidth = previewWidth,
+            previewCol = col + (width - previewWidth),
+          },
+        },
+      })
+    end
+    resize()
+
+    vim.api.nvim_create_autocmd("VimResized", {
+      callback = resize,
+    })
+
 
     local nmap = function(lhs, rhs)
       vim.keymap.set("n", lhs, rhs, { nowait = true, buffer = true, silent = true, remap = false })
