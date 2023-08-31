@@ -23,7 +23,7 @@ end
 
 ---@param name string A name of the local option.
 ---@param dict table<string, any> ddu options.
----@param startkey string
+---@param startkey? string
 function M.setup(name, dict, startkey)
   vim.fn["ddu#custom#patch_local"](name, dict)
   if startkey then

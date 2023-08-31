@@ -84,6 +84,10 @@ local spec = {
         nmap("l", helper.action("expandItem"))
         nmap("h", helper.action("collapseItem"))
         nmap("+", helper.action("chooseAction"))
+        nmap("<C-q>", function()
+          vim.fn["ddu#ui#do_action"]("toggleAllItems")
+          vim.fn["ddu#ui#do_action"]("itemAction", { name = "quickfix" })
+        end)
       end,
     })
     vim.api.nvim_create_autocmd("FileType", {
