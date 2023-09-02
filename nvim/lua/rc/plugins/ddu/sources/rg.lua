@@ -13,6 +13,7 @@ local spec = {
         },
         sources = { {
           name = "rg",
+          params = { args = { "--json" } }
         } },
         sourceOptions = {
           rg = {

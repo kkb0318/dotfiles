@@ -19,7 +19,7 @@ local spec = {
       },
       filterParams = {
         matcher_fzf = {
-          highlightMatched = "DduSearchMatched",
+          highlightMatched = "Search",
         },
       },
     })
