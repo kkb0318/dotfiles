@@ -1,0 +1,23 @@
+{
+  "Style": {
+    "Basic": [
+      "on_default",
+      "default"
+    ],
+    "SavedSelection": [
+      "bold",
+      "on_yellow",
+      "white"
+    ],
+    "Selected": [
+      "white"
+    ],
+    "Query": [
+      "yellow",
+      "bold"
+    ],
+    "Matched": [
+      "breen"
+    ]
+  }
+}
