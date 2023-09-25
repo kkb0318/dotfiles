@@ -69,7 +69,8 @@ fish/fish_history
 fish/fish_variables
 fish/functions
 fish/completions
-fish/conf.d
+fish/conf.d/*
+!fish/conf.d/custom/
 
 # tmux plugions
 tmux/plugins

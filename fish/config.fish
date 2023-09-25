@@ -16,3 +16,9 @@ set -gx PATH "$VOLTA_HOME/bin" $PATH
 export TERM="tmux-256color"
 
 export RIPGREP_CONFIG_PATH="$HOME/.config/.ripgreprc"
+
+# import custom config in conf.d/
+for file in ~/.config/fish/conf.d/custom/*.fish
+    source $file
+end
+
