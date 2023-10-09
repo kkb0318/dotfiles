@@ -7,8 +7,7 @@ local spec = {
     dependencies = { "ddu.vim", "ddu-kind-file" },
     config = function()
       helper.setup("file_rec", {
-          sources =
-          {
+          sources = {
             {
               name = 'file_rec',
             }
