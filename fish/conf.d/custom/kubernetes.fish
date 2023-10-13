@@ -9,7 +9,7 @@ end
 # Helper function to get a selected resource using peco
 function get-selected-resource
     set resource_type $argv[1]
-    echo (kubectl get $resource_type -A | peco)
+    echo (kubectl get $resource_type -A --no-headers | peco)
 end
 
 # Helper function to reconcile a resource using Flux
@@ -43,7 +43,7 @@ function reconcile-ks
 end
 
 
-bind \ck switch-k8s-context
+bind \ckc switch-k8s-context
 bind \ckhr reconcile-hr
 bind \ckks reconcile-ks
 
