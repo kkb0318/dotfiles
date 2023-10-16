@@ -6,6 +6,16 @@ function switch-k8s-context
     end
 end
 
+function delete-k8s-context
+    set selected_ctx (kubectx | peco)
+    if test -n "$selected_ctx"
+        kubectx  -d $selected_ctx > /dev/null
+        echo "dummy"
+        echo (echo "This will be executed as if you pressed Enter.")
+        commandline -f repaint
+    end
+end
+
 # Helper function to get a selected resource using peco
 function get-selected-resource
     set resource_type $argv[1]
@@ -43,7 +53,8 @@ function reconcile-ks
 end
 
 
-bind \ckc switch-k8s-context
+bind \ckl delete-k8s-context
+bind \ckd switch-k8s-context
 bind \ckhr reconcile-hr
 bind \ckks reconcile-ks
 
