@@ -53,8 +53,8 @@ function reconcile-ks
 end
 
 
-bind \ckl delete-k8s-context
-bind \ckd switch-k8s-context
+bind \ckl switch-k8s-context
+bind \ckd delete-k8s-context
 bind \ckhr reconcile-hr
 bind \ckks reconcile-ks
 
