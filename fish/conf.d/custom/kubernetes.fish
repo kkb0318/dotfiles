@@ -1,7 +1,7 @@
 function switch-k8s-context
     set selected_ctx (kubectx | peco)
     if test -n "$selected_ctx"
-        kubectx $selected_ctx > /dev/null
+        kubectx $selected_ctx
         commandline -f repaint
     end
 end
@@ -9,7 +9,7 @@ end
 function delete-k8s-context
     set selected_ctx (kubectx | peco)
     if test -n "$selected_ctx"
-        kubectx  -d $selected_ctx > /dev/null
+        kubectx -d $selected_ctx
         echo "dummy"
         echo (echo "This will be executed as if you pressed Enter.")
         commandline -f repaint
