@@ -7,6 +7,7 @@ local spec = {
   },
   {
     "windwp/nvim-ts-autotag",
+    event = "VeryLazy",
   },
 }
 

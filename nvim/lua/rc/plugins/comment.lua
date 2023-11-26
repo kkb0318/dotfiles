@@ -7,14 +7,15 @@ local spec = {
       -- your configuration comes here
       -- or leave it empty to use the default settings
       -- refer to the configuration section below
-    }
+    },
+    event = "BufReadPre",
   },
   {
     'numToStr/Comment.nvim',
     opts = {
       -- add any options here
     },
-    lazy = false,
+    event = "BufReadPre",
   }
 
 }
