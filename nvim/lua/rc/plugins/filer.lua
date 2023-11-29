@@ -14,11 +14,11 @@ local spec = {
       "nvim-tree/nvim-web-devicons", -- File icons
     },
     cmd = "Fern",
+    keys = {
+      { "<C-n>", ":Fern . -reveal=% -drawer -toggle -width=40<CR>", desc = "toggle fern" },
+    },
     init = function()
       vim.g["fern#renderer"] = "nerdfont"
-      -- fern mapping
-      vim.keymap.set("n", "<C-n>", ":Fern . -reveal=% -drawer -toggle -width=40<CR>")
-      -- fern icon colorize
       vim.cmd([[
        augroup my-glyph-palette
          autocmd! *
@@ -26,7 +26,6 @@ local spec = {
          autocmd FileType nerdtree,startify call glyph_palette#apply()
        augroup END
       ]])
-      vim.keymap.set("n", "<C-n>", ":Fern . -reveal=% -drawer -toggle -width=40<CR>")
       -- fern
       vim.cmd([[
         let hide_dirs  = '^\%(\.git\|node_modules\|dist\)$'  " here you write the dir names
