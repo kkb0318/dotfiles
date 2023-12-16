@@ -76,7 +76,7 @@ local spec = {
       group = group,
       pattern = "ddu-ff",
       callback = function()
-        nmap("/", helper.action("openFilterWindow"))
+        nmap("i", helper.action("openFilterWindow"))
         nmap("<esc>", helper.action("quit"))
         nmap("<cr>", helper.action("itemAction"))
         nmap("l", helper.action("expandItem"))

@@ -16,6 +16,6 @@ function show_github_pr
     end
 end
 
-bind \cgp show_github_pr
-bind \cgi show_github_issue
+# bind \cp show_github_pr
+# bind \ci show_github_issue
 

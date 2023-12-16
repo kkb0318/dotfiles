@@ -26,6 +26,7 @@ end
 function reconcile-resource
     set resource_type $argv[1]
     set selected $argv[2]
+    set source $argv[3]
 
     # Extract namespace and name from the selected line
     set namespace (echo $selected | awk '{print $1}')
@@ -34,7 +35,11 @@ function reconcile-resource
     # Check if both namespace and name are set
     if test -n "$namespace" -a -n "$name"
         # Reconcile the resource using Flux
-        flux reconcile $resource_type $name -n $namespace
+        if test "$source" = "true"
+            flux reconcile source $resource_type $name -n $namespace
+        else
+            flux reconcile $resource_type $name -n $namespace
+        end
     else
         echo "No $resource_type selected."
         commandline -f repaint
@@ -52,9 +57,14 @@ function reconcile-ks
     reconcile-resource ks $selected
 end
 
+function reconcile-gitrepo
+    set selected (get-selected-resource gitrepo)
+    reconcile-resource git $selected true
+end
 
 bind \ckl switch-k8s-context
 bind \ckd delete-k8s-context
 bind \ckhr reconcile-hr
 bind \ckks reconcile-ks
+bind \ckgit reconcile-gitrepo
 

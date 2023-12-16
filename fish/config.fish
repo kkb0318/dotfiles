@@ -22,3 +22,12 @@ for file in ~/.config/fish/conf.d/custom/*.fish
     source $file
 end
 
+
+
+abbr -a k 'kubectl'
+abbr -a kg 'kubectl get'
+abbr -a kd 'kubectl describe'
+abbr -a ka 'kubectl apply'
+abbr -a g 'git'
+abbr -a gs 'git stash'
+abbr -a nv 'nvim'
