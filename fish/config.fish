@@ -23,6 +23,7 @@ for file in ~/.config/fish/conf.d/custom/*.fish
 end
 
 
+abbr -a dsstore "find . -name '.DS_Store' -type f -ls -delete"
 
 abbr -a k 'kubectl'
 abbr -a kg 'kubectl get'
