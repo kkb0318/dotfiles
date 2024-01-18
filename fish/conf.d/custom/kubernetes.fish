@@ -62,9 +62,15 @@ function reconcile-gitrepo
     reconcile-resource git $selected true
 end
 
+function reconcile-ocirepo
+    set selected (get-selected-resource ocirepo)
+    reconcile-resource oci $selected true
+end
+
 bind \ckl switch-k8s-context
 bind \ckd delete-k8s-context
 bind \ckhr reconcile-hr
 bind \ckks reconcile-ks
 bind \ckgit reconcile-gitrepo
+bind \ckoci reconcile-ocirepo
 
