@@ -35,6 +35,9 @@ keymap.set('n', 'tn', ':tabnew<CR>')
 -- Move current page to New tab
 keymap.set("n", "tm", [[<Cmd>lua MoveToNewTab()<CR>]], { silent = true })
 
+-- Camel to snake_case
+keymap.set("n", "<leader>cs", [[<Cmd>lua CamelToSnake()<CR>]], { silent = true })
+
 function MoveToNewTab()
   -- Equivalent to :tab split
   vim.cmd("tab split")
@@ -54,4 +57,17 @@ function MoveToNewTab()
   end
   -- Equivalent to :tabnext
   vim.cmd("tabnext")
+end
+
+function CamelToSnake()
+  -- カーソル位置の単語を取得
+  local word = vim.fn.expand("<cword>")
+
+  local new_word = CamelToSnakeString(word)
+  local cmd = "s/\\<" .. word .. "\\>/" .. new_word .. "/g"
+  vim.api.nvim_command(cmd)
+end
+
+function CamelToSnakeString(str)
+  return str:gsub('(%a)(%u)', function(a, b) return a:lower() .. '_' .. b:lower() end)
 end

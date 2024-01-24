@@ -39,8 +39,6 @@ vim.opt.path:append { '**' } -- Finding files - Search down into subfolders
 vim.opt.wildignore:append { '*/node_modules/*' }
 
 
--- lang
-vim.opt.helplang = { "en", "ja" }
 
 -- Undercurl
 vim.cmd([[let &t_Cs = "\e[4:3m"]])
@@ -69,3 +67,9 @@ function HistClean()
     vim.fn.histdel(":", -1)
   end
 end
+
+-- lang
+vim.opt.helplang = { "en", "ja" }
+
+-- go
+vim.g.go_addtags_transform = 'camelcase'
