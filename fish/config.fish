@@ -32,3 +32,5 @@ abbr -a ka 'kubectl apply'
 abbr -a g 'git'
 abbr -a gs 'git stash'
 abbr -a nv 'nvim'
+
+export GOPATH="$HOME/go"

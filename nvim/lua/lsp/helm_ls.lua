@@ -1,6 +1,11 @@
 local config = {
-  filetypes = { "helm" },
-  cmd = { "helm_ls", "serve" },
+  settings = {
+    ['helm-ls'] = {
+      yamlls = {
+        path = "yaml-language-server",
+      }
+    }
+  }
 }
 
 return {
