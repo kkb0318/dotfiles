@@ -149,6 +149,8 @@ local config = {
   -- https://github.com/wez/wezterm/issues/2756
   webgpu_preferred_adapter = gpus[1],
   front_end = "WebGpu",
+  -- macos full screen setting     setup with wezterm.on("gui-startup")
+  native_macos_fullscreen_mode = true,
 }
 
 local merged_config = utils.merge_tables(config, local_config)
