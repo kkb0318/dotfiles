@@ -17,9 +17,11 @@ local spec = {
     event = "VeryLazy"
   },
   {
-    "iamcco/markdown-preview.nvim", --markdown
-    run = function() vim.fn["mkdp#util#install"]() end,
-    event = "VeryLazy"
+    "iamcco/markdown-preview.nvim", -- markdown
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function() vim.fn["mkdp#util#install"]() end,
+    event = "VeryLazy",
   },
 }
 return spec
