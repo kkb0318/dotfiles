@@ -25,12 +25,16 @@ end
 
 abbr -a dsstore "find . -name '.DS_Store' -type f -ls -delete"
 
-abbr -a k 'kubectl'
-abbr -a kg 'kubectl get'
-abbr -a kd 'kubectl describe'
-abbr -a ka 'kubectl apply'
 abbr -a g 'git'
 abbr -a gs 'git stash'
 abbr -a nv 'nvim'
 
 export GOPATH="$HOME/go"
+
+# for kubernetes
+abbr -a k 'kubectl'
+abbr -a kg 'kubectl get'
+abbr -a kd 'kubectl describe'
+abbr -a ka 'kubectl apply'
+## kubernetes krew setting
+set -gx PATH $PATH $HOME/.krew/bin
