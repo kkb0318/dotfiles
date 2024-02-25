@@ -1,6 +1,20 @@
 ---@type LazySpec
 local spec = {
   {
+    'stevearc/oil.nvim',
+    keys = {
+      {
+        "<leader>e",
+        function()
+          vim.cmd.Oil()
+        end,
+      },
+    },
+    opts = {},
+    -- Optional dependencies
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
+  {
     "lambdalisue/fern.vim",
     dependencies = {
       -- filer with fonts
