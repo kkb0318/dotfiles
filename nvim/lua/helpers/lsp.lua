@@ -24,7 +24,7 @@ local on_attach = function(client, bufnr)
   --buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- vim illuminate
-  require("illuminate").on_attach(client)
+  -- require("illuminate").on_attach(client)
 
   -- Short-circuit for Helm template files
   -- if vim.bo[bufnr].buftype ~= '' or vim.bo[bufnr].filetype == 'helm' then
