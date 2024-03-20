@@ -8,7 +8,6 @@ set -x PATH $PATH $HOME/.config/yarn/global/node_modules/.bin
 
 set -x PATH $PATH $HOME/go/bin
 
-abbr -a tree 'tree -a -I "\.DS_Store|\.git|node_modules|vendor\/bundle" -N'
 set -gx VOLTA_HOME "$HOME/.volta"
 set -gx PATH "$VOLTA_HOME/bin" $PATH
 
@@ -22,6 +21,7 @@ for file in ~/.config/fish/conf.d/custom/*.fish
     source $file
 end
 
+abbr -a tree 'tree -a -I "\.DS_Store|\.git|node_modules|vendor\/bundle" -N'
 
 abbr -a dsstore "find . -name '.DS_Store' -type f -ls -delete"
 

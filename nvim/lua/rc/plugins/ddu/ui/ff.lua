@@ -15,7 +15,7 @@ local spec = {
           split = "floating",
           floatingBorder = "single",
           filterFloatingPosition = "top",
-          autoAction = { name = "preview", delay = 1 },
+          autoAction = { name = "preview" },
           startAutoAction = true,
           previewFloating = true,
           previewFloatingBorder = "single",
