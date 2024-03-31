@@ -1,0 +1,27 @@
+### pyenv ###
+.python-version
+### end of pyenv ###
+
+### mypy ###
+.mypy_cache/
+### end of mypy ###
+
+### Ripgrep ###
+.rgignore
+### end of Ripgrep ###
+
+### Nodenv ###
+.node-version
+### end of Nodenv ###
+
+### VSCode ###
+.vscode
+### end of VSCode ###
+
+### OSX ###
+.DS_Store
+.AppleDouble
+.LSOverride
+
+## for RipGrep
+.git/

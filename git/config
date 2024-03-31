@@ -1,0 +1,21 @@
+;; core =============================================================
+
+[core]
+	excludesfile = ~/.config/git/ignore
+	precomposeunicode = true
+
+[pull]
+	rebase = true
+[push]
+	default = simple
+[commit]
+	verbose = true
+[rebase]
+	autosquash = true
+	autostash = true
+[rerere]
+	enabled = true
+
+[diff]
+	compactionHeuristic = true
+
