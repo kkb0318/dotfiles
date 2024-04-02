@@ -4,7 +4,7 @@ local helper = require("helpers.lsp")
 local spec = {
   {
     "neovim/nvim-lspconfig",
-    event = "VeryLazy",
+    event = { "BufReadPre", "BufNewFile", "VeryLazy" },
     dependencies = {
       {
         "williamboman/mason.nvim",
@@ -20,9 +20,28 @@ local spec = {
           require("fidget").setup()
         end,
       },
-      "RRethy/vim-illuminate",
+      {
+        "RRethy/vim-illuminate",
+        config = function()
+          helper.on_attach(function(client, _)
+            require("illuminate").on_attach(client)
+          end)
+        end,
+      },
       "glepnir/lspsaga.nvim"
     },
+    init = function()
+      helper.on_attach(function(client, bufnr)
+        local exclude_ft = { "oil" }
+        local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
+        if vim.tbl_contains(exclude_ft, ft) then
+          return
+        end
+        helper.my_on_attach(client, bufnr)
+        vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+      end)
+    end,
+
     config = function()
       local lspconfig       = require("lspconfig")
       local lsp_servers     = {

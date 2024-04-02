@@ -1,6 +1,7 @@
 ---@type LazySpec
 local spec = {
   "folke/trouble.nvim",
+  event = { "LspAttach" },
   dependencies = { "nvim-tree/nvim-web-devicons" },
   opts = {
     -- your configuration comes here

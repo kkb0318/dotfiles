@@ -1,38 +1,51 @@
+local Util = require("lazy.core.util")
+
 local M = {}
 
-local enable_format_on_save = function(_, bufnr)
-  -- Formatという名前のautocommand groupを作成し、もし既に存在する場合はその中の自動コマンドをクリアする
-  local augroup_format = vim.api.nvim_create_augroup("Format", { clear = true })
-
-  vim.api.nvim_clear_autocmds({ group = augroup_format, buffer = bufnr })
-  vim.api.nvim_create_autocmd("BufWritePre", {
-    group = augroup_format,
-    buffer = bufnr,
-    callback = function()
-      vim.lsp.buf.format({ bufnr = bufnr })
+---@param callback fun(client, buffer)
+function M.on_attach(callback)
+  vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function(args)
+      local buffer = args.buf
+      local client = vim.lsp.get_client_by_id(args.data.client_id)
+      callback(client, buffer)
     end,
   })
 end
 
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
+---@param opts? {force?:boolean}
+function M.format(opts)
+  local buf = vim.api.nvim_get_current_buf()
+  if vim.b.autoformat == false and not (opts and opts.force) then
+    return
+  end
+  vim.lsp.buf.format({
+    bufnr = buf,
+    timeout_ms = 3000,
+    filter = function(client)
+      if not client.server_capabilities.documentFormattingProvider then
+        return false
+      end
+      Util.info("format on save", { title = client.name })
+      return true
+    end,
+  })
+end
+
+local enable_format_on_save = function(_, bufnr)
+  vim.api.nvim_create_autocmd("BufWritePre", {
+    group = vim.api.nvim_create_augroup("LspFormat." .. bufnr, {}),
+    buffer = bufnr,
+    callback = function()
+      M.format()
+    end,
+  })
+end
+
+M.my_on_attach = function(client, bufnr)
+  enable_format_on_save(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 
-  --Enable completion triggered by <c-x><c-o>
-  --local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-  --buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  -- vim illuminate
-  -- require("illuminate").on_attach(client)
-
-  -- Short-circuit for Helm template files
-  -- if vim.bo[bufnr].buftype ~= '' or vim.bo[bufnr].filetype == 'helm' then
-  --   require('user').diagnostic.remove(bufnr)
-  --   return
-  -- end
-
-  -- Mappings.
   local opts = { noremap = true, silent = true }
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -56,13 +69,8 @@ function M.make_config(server_name)
   -- Setup base config for each server.
   local c = {}
 
-  c.on_attach = function(client, bufnr)
-    on_attach(client, bufnr)
-    enable_format_on_save(client, bufnr)
-  end
   -- Set up completion using nvim_cmp with LSP source
-  local capabilities = require('cmp_nvim_lsp').default_capabilities()
-  c.capabilities = capabilities
+  c.capabilities = require('cmp_nvim_lsp').default_capabilities()
   -- Merge user-defined lsp settings.
   -- These can be overridden locally by lua/lsp-local/<server_name>.lua
   local exists, module = pcall(require, 'lsp-local.' .. server_name)
