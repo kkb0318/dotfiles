@@ -1,0 +1,9 @@
+{
+  "fish": "~/.config/fish",
+  "git": "~/.config/git",
+  "lazygit": "~/.config/lazygit",
+  "nvim": "~/.config/nvim",
+  "peco": "~/.config/peco",
+  "tmux": "~/.config/tmux",
+  "wezterm": "~/.config/wezterm"
+}
