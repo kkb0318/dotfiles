@@ -1,4 +1,5 @@
 {
+  "aqua": "~/.config/aquaproj-aqua",
   "fish": "~/.config/fish",
   "git": "~/.config/git",
   "lazygit": "~/.config/lazygit",
