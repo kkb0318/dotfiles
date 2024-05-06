@@ -45,6 +45,7 @@ local spec = {
     config = function()
       local lspconfig       = require("lspconfig")
       local lsp_servers     = {
+        "phpactor",
         "gopls",
         "tsserver",
         "pyright",

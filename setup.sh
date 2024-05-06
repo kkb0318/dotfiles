@@ -59,7 +59,6 @@ cd aqua \
 
 
 # fish shell
-fish -c "curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher"
-fish -c "fisher update"
+fish -c "curl -sL https://git.io/fisher | source && fisher update"
 fish -c "fish_update_completions"
 
