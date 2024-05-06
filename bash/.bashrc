@@ -7,9 +7,10 @@ export AQUA_BIN_PATH="${AQUA_ROOT_DIR}/bin"
 export LOCALBIN="$HOME/.local/bin"
 export HOMEBREW_X86_64_BIN="/usr/local/bin"
 export HOMEBREW_ARM_BIN="/opt/homebrew/bin"
+export HOMEBREW_LINUX_BIN="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin"
 export CURLBIN="/usr/local/opt/curl/bin"
 
-PATH=${HOMEBREW_ARM_BIN}:${HOMEBREW_X86_64_BIN}:${LOCALBIN}:/usr/bin:/bin:/opt/local/sbin:${PATH}
+PATH=${HOMEBREW_ARM_BIN}:${HOMEBREW_X86_64_BIN}:${HOMEBREW_LINUX_BIN}:${LOCALBIN}:/usr/bin:/bin:/opt/local/sbin:${PATH}
 PATH=${AQUA_BIN_PATH}:${CURLBIN}:${PATH}
 
 # aqua
