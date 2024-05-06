@@ -9,7 +9,7 @@ os=$(uname -s | tr '[:upper:]' '[:lower:]')
 mkdir -p $XDG_CONFIG_HOME
 mkdir -p $XDG_DATA_HOME
 
-if [ os == "darwin" ] ; then
+if [ "$os" = "darwin" ] ; then
   if ! xcode-select -p > /dev/null 2>&1 ; then
     xcode-select --install
   fi
@@ -43,7 +43,7 @@ fi
 
 if [ "$os" = "linux" ] ; then
   apt-get update
-  apt-get install -y curl
+  apt-get install -y curl fish
   apt-get clean
   apt-get install fish
   rm -rf /var/lib/apt/lists/*
