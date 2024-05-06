@@ -1,0 +1,17 @@
+{
+  "vulnerabilityAlerts": {
+    "automerge": true,
+    "labels": [
+      "security"
+    ]
+  },
+  "extends": [
+    "github>aquaproj/aqua-renovate-config#2.2.1"
+  ],
+  "labels": [
+    "dependencies",
+    "renovate"
+  ],
+  "automerge": true
+}
+

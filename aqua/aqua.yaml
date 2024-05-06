@@ -11,6 +11,7 @@ registries:
     ref: v4.169.0 # renovate: depName=aquaproj/aqua-registry
 packages:
   - name: rhysd/dotfiles@v0.2.3
+  - name: denoland/deno@v1.42.2
   - name: x-motemen/ghq@v1.6.1
   - name: jesseduffield/lazygit@v0.41.0
   - name: BurntSushi/ripgrep@14.1.0
