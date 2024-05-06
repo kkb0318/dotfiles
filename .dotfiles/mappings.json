@@ -1,6 +1,7 @@
 {
   "aqua": "~/.config/aquaproj-aqua",
   "fish": "~/.config/fish",
+  "bash/.bashrc": "~/.bashrc",
   "git": "~/.config/git",
   "lazygit": "~/.config/lazygit",
   "nvim": "~/.config/nvim",
