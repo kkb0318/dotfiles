@@ -2,14 +2,20 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
-# set --universal nvm_default_version v18.7.0
 
-set -x PATH $PATH $HOME/.config/yarn/global/node_modules/.bin
+# define XDG paths
+set -q XDG_CONFIG_HOME || set -gx XDG_CONFIG_HOME $HOME/.config
+set -q XDG_DATA_HOME || set -gx XDG_DATA_HOME $HOME/.local/share
+set -q XDG_CACHE_HOME || set -gx XDG_CACHE_HOME $HOME/.cache
 
-set -x PATH $PATH $HOME/go/bin
+
 
 set -gx VOLTA_HOME "$HOME/.volta"
-set -gx PATH "$VOLTA_HOME/bin" $PATH
+fish_add_path "$VOLTA_HOME/bin"
+fish_add_path $HOME/.config/yarn/global/node_modules/.bin
+fish_add_path $HOME/go/bin
+
+# set --universal nvm_default_version v18.7.0
 
 # tmux color. install https://gist.github.com/bbqtd/a4ac060d6f6b9ea6fe3aabe735aa9d95
 export TERM="tmux-256color"
@@ -37,4 +43,4 @@ abbr -a kg 'kubectl get'
 abbr -a kd 'kubectl describe'
 abbr -a ka 'kubectl apply'
 ## kubernetes krew setting
-set -gx PATH $PATH $HOME/.krew/bin
+fish_add_path $HOME/.krew/bin
