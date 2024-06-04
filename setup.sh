@@ -1,6 +1,6 @@
 #!/bin/bash
 
-AQUA_VERSION=v3.0.0
+AQUA_VERSION=v3.0.1
 XDG_CONFIG_HOME=$HOME/.config
 XDG_DATA_HOME=$HOME/.local/share
 
