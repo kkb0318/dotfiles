@@ -49,9 +49,12 @@ if [ "$os" = "linux" ] ; then
   rm -rf /var/lib/apt/lists/*
 fi
 
-curl -sSfL "https://raw.githubusercontent.com/aquaproj/aqua-installer/${AQUA_VERSION}/aqua-installer" | bash
+curl -sSfL -O https://raw.githubusercontent.com/aquaproj/aqua-installer/${AQUA_VERSION}/aqua-installer
+echo "fb4b3b7d026e5aba1fc478c268e8fbd653e01404c8a8c6284fdba88ae62eda6a  aqua-installer" | sha256sum -c
+chmod +x aqua-installer
+./aqua-installer
 
-export PATH="$XDG_DATA_HOME/aquaproj-aqua/bin:$PATH"
+export PATH=${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin:$PATH
 cd aqua \
   && aqua install -l -a \
   && cd ../ \
