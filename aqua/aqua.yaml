@@ -12,7 +12,7 @@ registries:
 packages:
   - name: BurntSushi/ripgrep@14.1.0
   - name: denoland/deno@v1.44.0
-  - name: junegunn/fzf@0.52.1
+  - name: junegunn/fzf@0.53.0
   - name: jesseduffield/lazygit@v0.42.0
   - name: peco/peco@v0.5.11
   - name: rhysd/dotfiles@v0.2.3
