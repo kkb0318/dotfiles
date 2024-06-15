@@ -44,7 +44,7 @@ if [ "$os" = "linux" ] ; then
  if command -v lsb_release >/dev/null 2>&1; then
   distro=$(lsb_release -is)
  else
-  distro=$(cat /etc/os-release | grep ^ID= | cut -d'=' -f2)
+  distro=$(cat /etc/os-release | grep ^ID= | cut -d'=' -f2 | tr -d '"')
  fi
 
  case "$distro" in
@@ -54,7 +54,7 @@ if [ "$os" = "linux" ] ; then
    apt-get clean
    rm -rf /var/lib/apt/lists/*
    ;;
-  CentOS|RHEL|Fedora)
+  centos|rhel|fedora)
    yum install -y curl fish
    ;;
   amzn)
