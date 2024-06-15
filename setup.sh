@@ -59,7 +59,10 @@ if [ "$os" = "linux" ] ; then
    ;;
   amzn)
    amazon-linux-extras install -y epel
-   yum install -y curl fish
+   yum install -y curl
+   cd /etc/yum.repos.d/
+   wget https://download.opensuse.org/repositories/shells:fish:release:3/CentOS_7/shells:fish:release:3.repo
+   yum install -y fish
    ;;
   *)
    echo "Unsupported Linux distribution: $distro"
