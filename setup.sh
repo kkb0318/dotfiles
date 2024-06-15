@@ -40,15 +40,35 @@ if [ "$os" = "darwin" ] ; then
 
 fi
 
-
 if [ "$os" = "linux" ] ; then
-  apt-get update
-  apt-get install -y curl fish
-  apt-get clean
-  apt-get install fish
-  rm -rf /var/lib/apt/lists/*
+ if command -v lsb_release >/dev/null 2>&1; then
+  distro=$(lsb_release -is)
+ else
+  distro=$(cat /etc/os-release | grep ^ID= | cut -d'=' -f2)
+ fi
+
+ case "$distro" in
+  Ubuntu|Debian)
+   apt-get update
+   apt-get install -y curl fish
+   apt-get clean
+   rm -rf /var/lib/apt/lists/*
+   ;;
+  CentOS|RHEL|Fedora)
+   yum install -y curl fish
+   ;;
+  amzn)
+   amazon-linux-extras install -y epel
+   yum install -y curl fish
+   ;;
+  *)
+   echo "Unsupported Linux distribution: $distro"
+   exit 1
+   ;;
+ esac
 fi
 
+# install aqua
 curl -sSfL -O https://raw.githubusercontent.com/aquaproj/aqua-installer/${AQUA_VERSION}/aqua-installer
 echo "fb4b3b7d026e5aba1fc478c268e8fbd653e01404c8a8c6284fdba88ae62eda6a  aqua-installer" | sha256sum -c
 chmod +x aqua-installer
