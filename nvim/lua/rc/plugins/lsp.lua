@@ -28,7 +28,8 @@ local spec = {
           end)
         end,
       },
-      "glepnir/lspsaga.nvim"
+      "glepnir/lspsaga.nvim",
+      "b0o/schemastore.nvim", -- for jsonls schema
     },
     init = function()
       helper.on_attach(function(client, bufnr)

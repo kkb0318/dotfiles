@@ -1,8 +1,12 @@
 ---@type LazySpec
 local spec = {
   {
-    "jose-elias-alvarez/null-ls.nvim", -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua.
+    -- "jose-elias-alvarez/null-ls.nvim", -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua.
+    "nvimtools/none-ls.nvim", -- after null-ls
     event = "VeryLazy",
+    dependencies = {
+      "nvimtools/none-ls-extras.nvim",
+    },
     config = function()
       local null_ls = require("null-ls")
       local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
@@ -19,22 +23,15 @@ local spec = {
       null_ls.setup {
         sources = {
           null_ls.builtins.formatting.prettierd,
-          null_ls.builtins.diagnostics.eslint_d.with({
-            diagnostics_format = '[eslint] #{m}\n(#{c})'
-          }),
+          require("none-ls.diagnostics.eslint"),
           null_ls.builtins.diagnostics.fish,
           null_ls.builtins.diagnostics.rstcheck,
           -- python
           null_ls.builtins.formatting.isort,
           null_ls.builtins.formatting.black,
-          null_ls.builtins.diagnostics.flake8,
-          -- null_ls.builtins.diagnostics.mypy,
-          -- gitsigns
-          -- null_ls.builtins.code_actions.gitsigns,
-          -- tf
-          -- null_ls.builtins.formatting.terraform_fmt,
-          null_ls.builtins.diagnostics.jsonlint,
-          null_ls.builtins.formatting.jq,
+          require("none-ls.diagnostics.flake8"),
+          -- require("none-ls.diagnostics.jsonlint"),
+          require("none-ls.formatting.jq"),
         },
         on_attach = function(client, bufnr)
           if client.supports_method("textDocument/formatting") then
