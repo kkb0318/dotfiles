@@ -54,12 +54,12 @@ vim.api.nvim_create_autocmd("InsertLeave", {
 vim.opt.formatoptions:append { 'r' }
 
 -- ignore (:w, :q, ..) commandline history
-vim.api.nvim_exec([[
+vim.api.nvim_exec2([[
   augroup histclean
     autocmd!
     autocmd ModeChanged c:* lua HistClean()
   augroup END
-]], false)
+]], { output = false })
 
 function HistClean()
   local cmd = vim.fn.histget(":", -1)

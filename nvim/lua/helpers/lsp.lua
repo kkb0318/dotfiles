@@ -26,7 +26,7 @@ function M.format(opts)
       if not client.server_capabilities.documentFormattingProvider then
         return false
       end
-      Util.info("format on save", { title = client.name })
+      -- Util.info("format on save", { title = client.name })
       return true
     end,
   })

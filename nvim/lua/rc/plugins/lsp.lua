@@ -33,12 +33,12 @@ local spec = {
     init = function()
       helper.on_attach(function(client, bufnr)
         local exclude_ft = { "oil" }
-        local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
+        local ft = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
         if vim.tbl_contains(exclude_ft, ft) then
           return
         end
         helper.my_on_attach(client, bufnr)
-        vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+        vim.api.nvim_set_option_value("omnifunc", "v:lua.vim.lsp.omnifunc", { buf = bufnr })
       end)
     end,
 
