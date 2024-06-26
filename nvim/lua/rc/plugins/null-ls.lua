@@ -25,6 +25,7 @@ local spec = {
           null_ls.builtins.formatting.prettierd,
           require("none-ls.diagnostics.eslint"),
           null_ls.builtins.diagnostics.fish,
+          null_ls.builtins.formatting.fish_indent,
           null_ls.builtins.diagnostics.rstcheck,
           -- python
           null_ls.builtins.formatting.isort,

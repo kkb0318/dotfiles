@@ -10,7 +10,7 @@ function delete-k8s-context
     set selected_ctx (kubectx | peco)
     if test -n "$selected_ctx"
         kubectx -d $selected_ctx
-        echo "dummy"
+        echo dummy
         echo (echo "This will be executed as if you pressed Enter.")
         commandline -f repaint
     end
@@ -35,10 +35,14 @@ function reconcile-resource
     # Check if both namespace and name are set
     if test -n "$namespace" -a -n "$name"
         # Reconcile the resource using Flux
-        if test "$source" = "true"
+        if test "$source" = true
             flux reconcile source $resource_type $name -n $namespace
         else
-            flux reconcile $resource_type $name -n $namespace
+            if test "$resource_type" = hr
+                flux reconcile $resource_type $name -n $namespace --force
+            else
+                flux reconcile $resource_type $name -n $namespace
+            end
         end
     else
         echo "No $resource_type selected."
@@ -73,4 +77,3 @@ bind \ckhr reconcile-hr
 bind \ckks reconcile-ks
 bind \ckgit reconcile-gitrepo
 bind \ckoci reconcile-ocirepo
-
