@@ -1,4 +1,5 @@
 {
+  "aerospace": "~/.config/aerospace",
   "aqua": "~/.config/aquaproj-aqua",
   "fish": "~/.config/fish",
   "bash/.bashrc": "~/.bashrc",
