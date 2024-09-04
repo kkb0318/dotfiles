@@ -1,25 +1,11 @@
 local wezterm = require("wezterm")
-local act = wezterm.action
 local utils = require("utils")
 local keybinds = require("keybinds")
 local scheme = wezterm.get_builtin_color_schemes()["nord"]
 local gpus = wezterm.gui.enumerate_gpus()
 require("on")
 
--- /etc/ssh/sshd_config
--- AcceptEnv TERM_PROGRAM_VERSION COLORTERM TERM TERM_PROGRAM WEZTERM_REMOTE_PANE
--- sudo systemctl reload sshd
 
----------------------------------------------------------------
---- functions
----------------------------------------------------------------
-local function enable_wayland()
-  local wayland = os.getenv("XDG_SESSION_TYPE")
-  if wayland == "wayland" then
-    return true
-  end
-  return false
-end
 
 ---------------------------------------------------------------
 --- Merge the Config
@@ -103,9 +89,6 @@ local config = {
   cursor_blink_ease_in = "Constant",
   cursor_blink_ease_out = "Constant",
   cursor_blink_rate = 0,
-  -- enable_wayland = enable_wayland(),
-  -- https://github.com/wez/wezterm/issues/1772
-  enable_wayland = false,
   color_scheme = "nordfox",
   color_scheme_dirs = { os.getenv("HOME") .. "/.config/wezterm/colors/" },
   hide_tab_bar_if_only_one_tab = false,
