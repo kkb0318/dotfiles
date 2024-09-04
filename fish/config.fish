@@ -14,6 +14,7 @@ set -gx VOLTA_HOME "$HOME/.volta"
 fish_add_path "$VOLTA_HOME/bin"
 fish_add_path $HOME/.config/yarn/global/node_modules/.bin
 fish_add_path $HOME/go/bin
+fish_add_path /opt/homebrew/bin
 
 # set --universal nvm_default_version v18.7.0
 
