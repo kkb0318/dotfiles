@@ -88,6 +88,9 @@ local spec = {
 
       mason_lspconfig.setup_handlers({
         function(server_name)
+          if server_name == "tsserver" then
+            server_name = "ts_ls"
+          end
           local opts = helper.make_config(server_name)
           lspconfig[server_name].setup(opts)
         end,
