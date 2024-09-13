@@ -1,6 +1,9 @@
 local config = {
   settings = {
     ['rust-analyzer'] = {
+      check = {
+        command = "clippy",
+      },
       diagnostics = {
         enable = false,
       },
