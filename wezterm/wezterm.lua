@@ -43,11 +43,9 @@ local config = {
   cursor_blink_rate = 0,
   color_scheme = "nordfox",
   color_scheme_dirs = { os.getenv("HOME") .. "/.config/wezterm/colors/" },
-  hide_tab_bar_if_only_one_tab = false,
   adjust_window_size_when_changing_font_size = false,
   selection_word_boundary = " \t\n{}[]()\"'`,;:│=&!%",
 
-  hide_tab_bar_if_only_one_tab = true,
   window_decorations = "RESIZE",
   window_padding = {
     left = 0,
@@ -74,6 +72,7 @@ local config = {
   tab_bar_at_bottom = false,
   show_new_tab_button_in_tab_bar = false,
   show_close_tab_button_in_tabs = false,
+  hide_tab_bar_if_only_one_tab = true,
 
   -- window settings
   window_close_confirmation = "AlwaysPrompt",
