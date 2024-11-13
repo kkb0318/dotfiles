@@ -71,7 +71,6 @@ local config = {
   ----------------------------------------------------
   tab_bar_at_bottom = false,
   show_new_tab_button_in_tab_bar = false,
-  show_close_tab_button_in_tabs = false,
   hide_tab_bar_if_only_one_tab = true,
 
   -- window settings
@@ -95,7 +94,7 @@ local config = {
   webgpu_preferred_adapter = gpus[1],
   front_end = "WebGpu",
   -- macos full screen setting     setup with wezterm.on("gui-startup")
-  native_macos_fullscreen_mode = true,
+  -- native_macos_fullscreen_mode = true,
 }
 
 return config
