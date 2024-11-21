@@ -62,9 +62,9 @@ local spec = {
 
       local mason_lspconfig = require("mason-lspconfig")
       mason_lspconfig.setup {
-        automatic_installation = true,
-        ensure_installed = lsp_servers
+        automatic_installation = { exclude = { "rust_analyzer" } },
       }
+
       local tools = {
         -- Formatter
         "black",
@@ -86,12 +86,10 @@ local spec = {
         end
       end
 
-      mason_lspconfig.setup_handlers({
-        function(server_name)
-          local opts = helper.make_config(server_name)
-          lspconfig[server_name].setup(opts)
-        end,
-      })
+      for _, server_name in ipairs(lsp_servers) do
+        local opts = helper.make_config(server_name)
+        lspconfig[server_name].setup(opts)
+      end
 
       -- LSP Saga settings
       local saga = require("lspsaga")
