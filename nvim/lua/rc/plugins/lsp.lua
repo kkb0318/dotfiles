@@ -15,7 +15,6 @@ local spec = {
       "williamboman/mason-lspconfig.nvim",
       {
         "j-hui/fidget.nvim",
-        tag = "legacy",
         config = function()
           require("fidget").setup()
         end,
@@ -61,6 +60,12 @@ local spec = {
       }
 
       local mason_lspconfig = require("mason-lspconfig")
+
+      -- prevent mason-lspconfig from setting up
+      -- See ':h rustaceanvim.mason'
+      -- mason_lspconfig.setup_handlers {
+      --   ['rust_analyzer'] = function() end,
+      -- }
       mason_lspconfig.setup {
         automatic_installation = { exclude = { "rust_analyzer" } },
       }
@@ -77,8 +82,9 @@ local spec = {
         "eslint_d",
         "jsonlint",
       }
+
       -- ensure tools (except LSPs) are installed
-      local mr = require("mason-registry")
+      local mr    = require("mason-registry")
       for _, tool in ipairs(tools) do
         local p = mr.get_package(tool)
         if not p:is_installed() then
