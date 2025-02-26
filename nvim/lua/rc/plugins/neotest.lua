@@ -2,6 +2,7 @@ local spec = {
   {
     "nvim-neotest/neotest",
     dependencies = {
+      "nvim-neotest/neotest-python",
       "nvim-neotest/nvim-nio",
       "nvim-lua/plenary.nvim",
       "antoinemadec/FixCursorHold.nvim",
@@ -15,7 +16,13 @@ local spec = {
       --   })
       require("neotest").setup({
         adapters = {
-          require('rustaceanvim.neotest')
+          require('rustaceanvim.neotest'),
+          require('neotest-python')({
+            dap = { justMyCode = false },
+            args = { "--log-level", "DEBUG" },
+            runner = "pytest",
+            pytest_discover_instances = true,
+          })
         },
       })
       local opts = { noremap = true, silent = true }

@@ -32,16 +32,29 @@ abbr -a tree 'tree -a -I "\.DS_Store|\.git|node_modules|vendor\/bundle" -N'
 
 abbr -a dsstore "find . -name '.DS_Store' -type f -ls -delete"
 
-abbr -a g 'git'
+abbr -a g git
 abbr -a gs 'git stash'
-abbr -a nv 'nvim'
+abbr -a nv nvim
 
 export GOPATH="$HOME/go"
 
 # for kubernetes
-abbr -a k 'kubectl'
+abbr -a k kubectl
 abbr -a kg 'kubectl get'
 abbr -a kd 'kubectl describe'
 abbr -a ka 'kubectl apply'
 ## kubernetes krew setting
 fish_add_path $HOME/.krew/bin
+
+export PYENV_ROOT="$HOME/.pyenv"
+fish_add_path $PYENV_ROOT/bin
+
+function pyenv_run
+    eval "$(command pyenv init - | source)"
+end
+
+function update
+    brew update && brew upgrade
+    kubectl krew upgrade
+    fisher update
+end

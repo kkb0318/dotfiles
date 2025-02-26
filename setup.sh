@@ -36,7 +36,10 @@ if [ "$os" = "darwin" ] ; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   source ./bash/.bashrc
   
-  brew install fish curl
+  brew install fish curl neovim
+  # set default shell
+  echo /opt/homebrew/bin/fish | sudo tee -a /etc/shells
+  chsh -s /opt/homebrew/bin/fish
 
 fi
 

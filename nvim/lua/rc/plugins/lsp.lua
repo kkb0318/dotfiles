@@ -27,7 +27,9 @@ local spec = {
           end)
         end,
       },
-      "glepnir/lspsaga.nvim",
+      {
+        "glepnir/lspsaga.nvim",
+      },
       "b0o/schemastore.nvim", -- for jsonls schema
     },
     init = function()
@@ -48,14 +50,17 @@ local spec = {
         -- "phpactor",
         "gopls",
         "ts_ls",
+        "efm",
         "pyright",
         "yamlls",
         "cssls",
+        "denols",
         "jsonls",
         "clangd",
         "terraformls",
         "rust_analyzer",
         "lua_ls",
+        "ruff",
         "helm_ls",
       }
 

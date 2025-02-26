@@ -1,10 +1,6 @@
 ---@type LazySpec
 local spec = {
   {
-    "monaqa/dial.nvim", -- increment
-    event = "VeryLazy"
-  },
-  {
     "hrsh7th/nvim-insx", --bracket
   },
   {
