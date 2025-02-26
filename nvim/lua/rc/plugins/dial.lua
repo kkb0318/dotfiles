@@ -10,6 +10,7 @@ local spec = {
         default = {
           augend.integer.alias.decimal,  -- nonnegative decimal number (0, 1, 2, 3, ...)
           augend.integer.alias.hex,      -- nonnegative hex number  (0x01, 0x1a1f, etc.)
+          augend.integer.alias.bool,     -- boolean value (true <-> false)
           augend.date.alias["%Y/%m/%d"], -- date (2022/02/19, etc.)
         },
       }
@@ -37,7 +38,7 @@ local spec = {
       vim.keymap.set("v", "g<C-x>", function()
         require("dial.map").manipulate("decrement", "gvisual")
       end)
-    end
+    end,
     keys = {
       { "<C-a>",  mode = { "n", "v" } },
       { "<C-x>",  mode = { "n", "v" } },
