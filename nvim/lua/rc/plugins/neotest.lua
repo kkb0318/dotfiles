@@ -2,11 +2,12 @@ local spec = {
   {
     "nvim-neotest/neotest",
     dependencies = {
-      "nvim-neotest/neotest-python",
       "nvim-neotest/nvim-nio",
       "nvim-lua/plenary.nvim",
       "antoinemadec/FixCursorHold.nvim",
-      "nvim-treesitter/nvim-treesitter"
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-neotest/neotest-python",
+      'nvim-neotest/neotest-go',
     },
     config = function()
       --   require("neotest").setup({
@@ -22,7 +23,8 @@ local spec = {
             args = { "--log-level", "DEBUG" },
             runner = "pytest",
             pytest_discover_instances = true,
-          })
+          }),
+          require('neotest-go'),
         },
       })
       local opts = { noremap = true, silent = true }
