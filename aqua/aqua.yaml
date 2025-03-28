@@ -16,4 +16,4 @@ packages:
   - name: jesseduffield/lazygit@v0.48.0
   - name: peco/peco@v0.5.11
   - name: rhysd/dotfiles@v0.2.3
-  - name: x-motemen/ghq@v1.7.1
+  - name: x-motemen/ghq@v1.8.0
