@@ -11,7 +11,7 @@ registries:
     ref: v4.331.1 # renovate: depName=aquaproj/aqua-registry
 packages:
   - name: BurntSushi/ripgrep@14.1.1
-  - name: denoland/deno@v2.2.5
+  - name: denoland/deno@v2.2.6
   - name: junegunn/fzf@v0.60.3
   - name: jesseduffield/lazygit@v0.48.0
   - name: peco/peco@v0.5.11
