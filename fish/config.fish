@@ -2,13 +2,10 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
-
 # define XDG paths
 set -q XDG_CONFIG_HOME || set -gx XDG_CONFIG_HOME $HOME/.config
 set -q XDG_DATA_HOME || set -gx XDG_DATA_HOME $HOME/.local/share
 set -q XDG_CACHE_HOME || set -gx XDG_CACHE_HOME $HOME/.cache
-
-
 
 set -gx VOLTA_HOME "$HOME/.volta"
 fish_add_path "$VOLTA_HOME/bin"
@@ -22,6 +19,9 @@ fish_add_path /opt/homebrew/bin
 export TERM="tmux-256color"
 
 export RIPGREP_CONFIG_PATH="$HOME/.config/.ripgreprc"
+
+# VS Code
+fish_add_path "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
 # import custom config in conf.d/
 for file in ~/.config/fish/conf.d/custom/*.fish
