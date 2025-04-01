@@ -58,7 +58,7 @@ local spec = {
         "jsonls",
         "clangd",
         "terraformls",
-        "rust_analyzer",
+        -- "rust_analyzer", -- installed via rustaceanvim. See https://github.com/mrcjkb/rustaceanvim?tab=readme-ov-file#zap-quick-setup
         "lua_ls",
         "ruff",
         "helm_ls",
@@ -68,9 +68,9 @@ local spec = {
 
       -- prevent mason-lspconfig from setting up
       -- See ':h rustaceanvim.mason'
-      -- mason_lspconfig.setup_handlers {
-      --   ['rust_analyzer'] = function() end,
-      -- }
+      mason_lspconfig.setup_handlers {
+        ['rust_analyzer'] = function() end,
+      }
       mason_lspconfig.setup {
         automatic_installation = { exclude = { "rust_analyzer" } },
       }

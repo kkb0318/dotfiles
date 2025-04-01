@@ -1,33 +1,34 @@
-local config = {
-  settings = {
-    ['rust-analyzer'] = {
-      check = {
-        command = "clippy",
-      },
-      diagnostics = {
-        enable = false,
-      },
-      imports = {
-        granularity = {
-          group = "module",
-        },
-        prefix = "self",
-      },
-      cargo = {
-        buildScripts = {
-          enable = true,
-        },
-        features = "all",
-      },
-      procMacro = {
-        enable = true
-      },
-    }
-  }
-}
-
-return {
-  config = function(_)
-    return config
-  end,
-}
+-- installed via rustaceanvim. See https://github.com/mrcjkb/rustaceanvim?tab=readme-ov-file#zap-quick-setup
+-- local config = {
+--   settings = {
+--     ['rust-analyzer'] = {
+--       check = {
+--         command = "clippy",
+--       },
+--       diagnostics = {
+--         enable = false,
+--       },
+--       imports = {
+--         granularity = {
+--           group = "module",
+--         },
+--         prefix = "self",
+--       },
+--       cargo = {
+--         buildScripts = {
+--           enable = true,
+--         },
+--         features = "all",
+--       },
+--       procMacro = {
+--         enable = true
+--       },
+--     }
+--   }
+-- }
+--
+-- return {
+--   config = function(_)
+--     return config
+--   end,
+-- }
