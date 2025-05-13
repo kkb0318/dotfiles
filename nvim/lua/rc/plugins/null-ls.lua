@@ -27,14 +27,6 @@ local spec = {
           null_ls.builtins.diagnostics.fish,
           null_ls.builtins.formatting.fish_indent,
           null_ls.builtins.diagnostics.rstcheck,
-          -- python
-          null_ls.builtins.formatting.isort,
-          null_ls.builtins.formatting.black,
-          require("none-ls.diagnostics.flake8").with {
-            extra_args = {
-              '--ignore=E501',
-            }
-          },
           -- require("none-ls.diagnostics.jsonlint"),
           require("none-ls.formatting.jq"),
         },

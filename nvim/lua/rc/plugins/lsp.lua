@@ -12,7 +12,7 @@ local spec = {
           require("mason").setup()
         end,
       },
-      "williamboman/mason-lspconfig.nvim",
+      -- "williamboman/mason-lspconfig.nvim",
       {
         "j-hui/fidget.nvim",
         config = function()
@@ -45,7 +45,6 @@ local spec = {
     end,
 
     config = function()
-      local lspconfig       = require("lspconfig")
       local lsp_servers     = {
         -- "phpactor",
         "gopls",
@@ -64,22 +63,8 @@ local spec = {
         "helm_ls",
       }
 
-      local mason_lspconfig = require("mason-lspconfig")
-
-      -- prevent mason-lspconfig from setting up
-      -- See ':h rustaceanvim.mason'
-      mason_lspconfig.setup_handlers {
-        ['rust_analyzer'] = function() end,
-      }
-      mason_lspconfig.setup {
-        automatic_installation = { exclude = { "rust_analyzer" } },
-      }
-
       local tools = {
         -- Formatter
-        "black",
-        "flake8",
-        "isort",
         "prettier",
         "jq",
         -- Linter
@@ -88,6 +73,9 @@ local spec = {
         "jsonlint",
       }
 
+      vim.lsp.enable(tools)
+      vim.lsp.enable(lsp_servers)
+
       -- ensure tools (except LSPs) are installed
       local mr    = require("mason-registry")
       for _, tool in ipairs(tools) do
@@ -95,11 +83,6 @@ local spec = {
         if not p:is_installed() then
           p:install()
         end
-      end
-
-      for _, server_name in ipairs(lsp_servers) do
-        local opts = helper.make_config(server_name)
-        lspconfig[server_name].setup(opts)
       end
 
       -- LSP Saga settings
