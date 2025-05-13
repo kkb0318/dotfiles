@@ -65,26 +65,4 @@ M.my_on_attach = function(client, bufnr)
   buf_set_keymap('n', '<Leader>ce', '<cmd>lua vim.diagnostic.open_float({source=true})<CR>', opts)
 end
 
-function M.make_config(server_name)
-  -- Setup base config for each server.
-  local c = {}
-
-  -- Set up completion using nvim_cmp with LSP source
-  c.capabilities = require('cmp_nvim_lsp').default_capabilities()
-  -- Merge user-defined lsp settings.
-  -- These can be overridden locally by lua/lsp-local/<server_name>.lua
-  local exists, module = pcall(require, 'lsp-local.' .. server_name)
-  if not exists then
-    exists, module = pcall(require, 'lsp.' .. server_name)
-  end
-  if exists then
-    local user_config = module.config(c)
-    for k, v in pairs(user_config) do
-      c[k] = v
-    end
-  end
-
-  return c
-end
-
 return M
