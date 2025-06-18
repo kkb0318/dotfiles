@@ -23,12 +23,17 @@ keymap.set('n', '<C-w><right>', '<C-w>>')
 keymap.set('n', '<C-w><up>', '<C-w>+')
 keymap.set('n', '<C-w><down>', '<C-w>-')
 
--- no highlight
-keymap.set("n", "<Esc><Esc>", "<Cmd>nohl<CR>")
-
-
 -- New tab
 keymap.set('n', 'tn', ':tabnew<CR>')
+
+-- terminal mode
+keymap.set('t', '<esc>', '<C-\\><C-N>', { silent = true })
+keymap.set('t', '<C-w>h', '<C-\\><C-N><C-w>h', { silent = true })
+keymap.set('t', '<C-w>j', '<C-\\><C-N><C-w>j', { silent = true })
+keymap.set('t', '<C-w>k', '<C-\\><C-N><C-w>k', { silent = true })
+keymap.set('t', '<C-w>l', '<C-\\><C-N><C-w>l', { silent = true })
+
+
 
 
 
