@@ -13,6 +13,10 @@ fish_add_path $HOME/.config/yarn/global/node_modules/.bin
 fish_add_path $HOME/go/bin
 fish_add_path /opt/homebrew/bin
 
+# for openjdk
+fish_add_path /opt/homebrew/opt/openjdk@17/bin
+set -gx CPPFLAGS "-I/opt/homebrew/opt/openjdk@17/include"
+
 # set --universal nvm_default_version v18.7.0
 
 # tmux color. install https://gist.github.com/bbqtd/a4ac060d6f6b9ea6fe3aabe735aa9d95
@@ -53,8 +57,4 @@ function pyenv_run
     eval "$(command pyenv init - | source)"
 end
 
-function update
-    brew update && brew upgrade
-    kubectl krew upgrade
-    fisher update
-end
+# update function moved to fish/functions/update.fish
