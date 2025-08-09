@@ -76,3 +76,63 @@ end
 function CamelToSnakeString(str)
   return str:gsub('(%a)(%u)', function(a, b) return a:lower() .. '_' .. b:lower() end)
 end
+
+--- clipboard ---
+-- コマンドラインのカーソル位置にテキストを挿入
+---@param text string 挿入するテキスト
+local function insert_at_cmdline_cursor(text)
+  local cmdline = vim.fn.getcmdline()
+  local cursor_pos = vim.fn.getcmdpos()
+
+  -- 安全性チェック
+  if not cmdline or not cursor_pos or cursor_pos <= 0 then
+    vim.fn.setcmdline(text, #text + 1)
+    return
+  end
+
+  -- カーソル位置で分割
+  local before_cursor = cmdline:sub(1, cursor_pos - 1)
+  local after_cursor = cmdline:sub(cursor_pos)
+
+  -- テキストを挿入してカーソル位置を更新
+  local new_cmdline = before_cursor .. text .. after_cursor
+  local new_cursor_pos = cursor_pos + #text
+
+  vim.fn.setcmdline(new_cmdline, new_cursor_pos)
+end
+
+-- ファイルパス展開のヘルパー関数
+local function create_path_inserter(expand_pattern)
+  return function()
+    local expanded_path = vim.fn.expand(expand_pattern)
+    insert_at_cmdline_cursor(expanded_path)
+  end
+end
+
+local function create_path_copier(expand_pattern)
+  return function()
+    local expanded_path = vim.fn.expand(expand_pattern)
+    vim.fn.setreg('+', expanded_path) -- システムクリップボードにコピー
+    vim.fn.setreg('"', expanded_path) -- デフォルトレジスタにもコピー
+    print("クリップボードにコピー: " .. expanded_path)
+  end
+end
+
+-- パスタイプの定義
+local path_mappings = {
+  { key = "<C-y>t", pattern = "%:t", desc = "ファイル名のみ" },
+  { key = "<C-y>p", pattern = "%:p", desc = "絶対パス" },
+  { key = "<C-y>r", pattern = "%", desc = "相対パス" },
+  { key = "<C-y>h", pattern = "%:h", desc = "相対ディレクトリ" },
+  { key = "<C-y>H", pattern = "%:p:h", desc = "絶対ディレクトリ" },
+}
+
+-- キーマッピングの設定
+for _, mapping in ipairs(path_mappings) do
+  vim.keymap.set("c", mapping.key, create_path_inserter(mapping.pattern), {
+    desc = "コマンドラインに挿入: " .. mapping.desc
+  })
+  vim.keymap.set("n", mapping.key, create_path_copier(mapping.pattern), {
+    desc = mapping.desc
+  })
+end

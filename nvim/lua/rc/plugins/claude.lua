@@ -4,7 +4,6 @@ local spec = {
     "coder/claudecode.nvim",
     config = true,
     keys = {
-      { ";c",  nil,                              desc = "AI/Claude Code" },
       { ";cc", "<cmd>ClaudeCode<cr>",            desc = "Toggle Claude" },
       { ";cf", "<cmd>ClaudeCodeFocus<cr>",       desc = "Focus Claude" },
       { ";cr", "<cmd>ClaudeCode --resume<cr>",   desc = "Resume Claude" },

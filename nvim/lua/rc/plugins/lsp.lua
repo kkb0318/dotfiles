@@ -45,7 +45,7 @@ local spec = {
     end,
 
     config = function()
-      local lsp_servers     = {
+      local lsp_servers = {
         -- "phpactor",
         "gopls",
         "ts_ls",
@@ -63,7 +63,7 @@ local spec = {
         "helm_ls",
       }
 
-      local tools = {
+      local tools       = {
         -- Formatter
         "prettier",
         "jq",
@@ -77,7 +77,7 @@ local spec = {
       vim.lsp.enable(lsp_servers)
 
       -- ensure tools (except LSPs) are installed
-      local mr    = require("mason-registry")
+      local mr = require("mason-registry")
       for _, tool in ipairs(tools) do
         local p = mr.get_package(tool)
         if not p:is_installed() then
@@ -88,9 +88,6 @@ local spec = {
       -- LSP Saga settings
       local saga = require("lspsaga")
       saga.setup {
-        symbol_in_winbar = {
-          enable = false
-        },
         lightbulb = {
           enable = false
         },
