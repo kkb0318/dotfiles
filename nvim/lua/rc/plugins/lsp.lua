@@ -74,7 +74,6 @@ local spec = {
         "jsonlint",
       }
 
-      vim.lsp.enable(tools)
       vim.lsp.enable(lsp_servers)
 
       -- ensure tools (except LSPs) are installed
