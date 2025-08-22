@@ -1,6 +1,6 @@
 local status, util = pcall(require, "lspconfig/util")
 if (not status) then return end
-local config = {
+return {
   cmd = { "gopls", "serve" },
   filetypes = { "go", "gomod" },
   root_dir = util.root_pattern("go.work", "go.mod", ".git"),
@@ -13,10 +13,4 @@ local config = {
       gofumpt = true,
     },
   },
-}
-
-return {
-  config = function(_)
-    return config
-  end,
 }

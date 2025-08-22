@@ -32,7 +32,7 @@ function M.format(opts)
   })
 end
 
-local enable_format_on_save = function(_, bufnr)
+M.enable_format_on_save = function(_, bufnr)
   vim.api.nvim_create_autocmd("BufWritePre", {
     group = vim.api.nvim_create_augroup("LspFormat." .. bufnr, {}),
     buffer = bufnr,
@@ -42,10 +42,8 @@ local enable_format_on_save = function(_, bufnr)
   })
 end
 
-M.my_on_attach = function(client, bufnr)
-  enable_format_on_save(client, bufnr)
+M.on_attach_keymap = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-
   local opts = { noremap = true, silent = true }
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
