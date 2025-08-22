@@ -39,7 +39,8 @@ local spec = {
         if vim.tbl_contains(exclude_ft, ft) then
           return
         end
-        helper.my_on_attach(client, bufnr)
+        helper.enable_format_on_save(client, bufnr)
+        helper.on_attach_keymap(client, bufnr)
         vim.api.nvim_set_option_value("omnifunc", "v:lua.vim.lsp.omnifunc", { buf = bufnr })
       end)
     end,
