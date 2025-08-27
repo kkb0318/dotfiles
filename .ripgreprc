@@ -3,6 +3,13 @@
 
 # Using glob patterns to include/exclude files or folders
 --glob
-!.git/*
---glob
 !__pycache__/*
+
+--glob=!{.git,.svn,node_modules,tealdeer,Trash,vendor}
+
+# Exclude file types.
+--glob=!*.{lock}
+
+# Exclude files.
+--glob=!{package-lock.json}
+
