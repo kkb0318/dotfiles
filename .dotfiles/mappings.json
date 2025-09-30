@@ -8,5 +8,7 @@
   "nvim": "~/.config/nvim",
   "peco": "~/.config/peco",
   "tmux": "~/.config/tmux",
-  "wezterm": "~/.config/wezterm"
+  "wezterm": "~/.config/wezterm",
+  "nix": "~/.config/nix",
+  "home-manager": "~/.config/home-manager"
 }
