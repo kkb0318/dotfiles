@@ -27,6 +27,11 @@ export RIPGREP_CONFIG_PATH="$HOME/.config/.ripgreprc"
 # VS Code
 fish_add_path "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
+# direnv hook (managed by nix home-manager)
+if type -q direnv
+    direnv hook fish | source
+end
+
 # import custom config in conf.d/
 for file in ~/.config/fish/conf.d/custom/*.fish
     source $file

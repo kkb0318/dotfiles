@@ -17,9 +17,7 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = with pkgs; [
-    direnv
-    git
+  home.packages = [
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -75,4 +73,14 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+  programs = {
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+      # Don't let Home Manager manage shell integration
+      # We'll source direnv hook manually in our config.fish
+      enableBashIntegration = false;
+      enableFishIntegration = false;
+    };
+  };
 }
