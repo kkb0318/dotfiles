@@ -10,6 +10,11 @@ local spec = { {
           defaultAction = "switch",
         },
       },
+      sourceParams = {
+        git_worktree = {
+          defaultPath = '../worktrees/{repo}/{branch}',
+        },
+      },
     })
 
     helper.setup("git_worktree", {
