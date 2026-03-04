@@ -10,5 +10,6 @@
   "tmux": "~/.config/tmux",
   "wezterm": "~/.config/wezterm",
   "nix": "~/.config/nix",
+  "ghostty": "~/.config/ghostty",
   "home-manager": "~/.config/home-manager"
 }

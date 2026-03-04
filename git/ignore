@@ -1,7 +1,3 @@
-### pyenv ###
-.python-version
-### end of pyenv ###
-
 ### mypy ###
 .mypy_cache/
 ### end of mypy ###
