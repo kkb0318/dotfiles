@@ -1,12 +1,20 @@
 ---@type LazySpec
 local spec = {
+  -- {
+  --   "rebelot/kanagawa.nvim",
+  --   priority = 1000,
+  --   config = function()
+  --     vim.cmd.colorscheme("kanagawa")
+  --   end,
+  -- },
   {
-    "rebelot/kanagawa.nvim",
-    priority = 1000,
+    "anAcc22/sakura.nvim",
+    dependencies = "rktjmp/lush.nvim",
     config = function()
-      vim.cmd.colorscheme("kanagawa")
-    end,
-  },
+      vim.opt.background = "dark" -- or "light"
+      vim.cmd.colorscheme("sakura")
+    end
+  }
   -- {
   --   "bluz71/vim-nightfly-colors",
   --   name = "nightfly",
