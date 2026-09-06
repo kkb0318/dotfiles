@@ -1,9 +1,8 @@
-local status, util = pcall(require, "lspconfig/util")
-if (not status) then return end
 return {
   cmd = { "gopls", "serve" },
   filetypes = { "go", "gomod" },
-  root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+  root_markers = { "go.work", "go.mod", ".git" },
+
   settings = {
     gopls = {
       analyses = {
