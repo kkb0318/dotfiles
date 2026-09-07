@@ -19,14 +19,7 @@ local spec = {
           require("fidget").setup()
         end,
       },
-      {
-        "RRethy/vim-illuminate",
-        config = function()
-          helper.on_attach(function(client, _)
-            require("illuminate").on_attach(client)
-          end)
-        end,
-      },
+      "RRethy/vim-illuminate",
       {
         "glepnir/lspsaga.nvim",
       },
