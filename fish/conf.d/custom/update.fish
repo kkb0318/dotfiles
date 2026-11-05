@@ -1,140 +1,129 @@
-function update --description "Update all package managers and their packages"
+# Capture the resolved location while sourcing; a later `cd` must not change it.
+set -l __dotfiles_update_source (path resolve (status filename))
+set -l __dotfiles_update_root (path resolve (path dirname "$__dotfiles_update_source")/../../..)
+
+function update --inherit-variable __dotfiles_update_root --description "Apply reviewed, pinned package versions"
+    argparse h/help n/dry-run -- $argv; or return 2
+    if set -q _flag_help
+        echo "Usage: update [--dry-run]"
+        echo "Apply reviewed Aqua, Fisher and Lazy pins. See docs/updates.md."
+        return 0
+    end
+    if set -q argv[1]
+        echo "update: unexpected arguments: $argv" >&2
+        return 2
+    end
+
+    set -l repo_root "$__dotfiles_update_root"
     set -l failed_updates
+    set -l skipped_updates
+    set -l aqua_config "$repo_root/aqua/aqua.yaml"
+    set -l plugin_file "$repo_root/fish/fish_plugins"
 
-    echo "🔄 Starting comprehensive system update..."
-    echo ""
+    echo "Applying reviewed pins (version selection happens before this command)."
 
-    # Homebrew
-    echo "📦 Updating Homebrew..."
-    if brew update && brew upgrade
-        echo "✅ Homebrew updated successfully"
+    if not command -q aqua
+        set -a skipped_updates "Aqua: not installed"
+    else if not test -s "$aqua_config"; or not test -s "$repo_root/aqua/aqua-checksums.json"
+        echo "Aqua: configuration or reviewed checksums are missing" >&2
+        set -a failed_updates Aqua
+    else if set -q _flag_dry_run
+        echo "[dry-run] aqua -c $aqua_config install (checksums required)"
     else
-        set -a failed_updates "Homebrew"
-    end
-    echo ""
-
-    # Aqua
-    if command -q aqua
-        echo "💧 Updating Aqua packages..."
-        if aqua update
-            echo "✅ Aqua updated successfully"
-        else
-            set -a failed_updates "Aqua"
-        end
-        echo ""
-    end
-
-    # Fisher
-    echo "🐟 Updating Fish plugins..."
-    if fisher update
-        echo "✅ Fisher updated successfully"
-    else
-        set -a failed_updates "Fisher"
-    end
-    echo ""
-
-    # Kubectl Krew
-    if command -q kubectl && kubectl krew version &>/dev/null
-        echo "☸️  Updating kubectl plugins..."
-        if kubectl krew upgrade
-            echo "✅ Kubectl Krew updated successfully"
-        else
-            set -a failed_updates "Kubectl Krew"
-        end
-        echo ""
-    end
-
-    # Rust/Cargo
-    if command -q rustup
-        echo "🦀 Updating Rust toolchain..."
-        if rustup update
-            echo "✅ Rustup updated successfully"
-        else
-            set -a failed_updates "Rustup"
-        end
-        
-        # Update cargo-installed binaries
-        if command -q cargo-update
-            echo "📦 Updating Cargo packages..."
-            if cargo install-update -a
-                echo "✅ Cargo packages updated successfully"
+        begin
+            set -lx AQUA_ENFORCE_CHECKSUM true
+            set -lx AQUA_ENFORCE_REQUIRE_CHECKSUM true
+            if aqua -c "$aqua_config" install
+                echo "✅ Aqua pins applied"
             else
-                set -a failed_updates "Cargo packages"
+                set -a failed_updates Aqua
             end
-        else
-            echo "💡 Tip: Install cargo-update with 'cargo install cargo-update' to update cargo packages"
         end
-        echo ""
     end
 
-    # Go packages
-    if command -q go
-        echo "🐹 Updating Go packages..."
-        set -l go_bin_path (go env GOPATH)/bin
-        if test -d $go_bin_path
-            for tool in (ls $go_bin_path)
-                if go install (go version -m $go_bin_path/$tool | grep "^\s*path" | awk '{print $2}')@latest &>/dev/null
-                    echo "  ✅ Updated: $tool"
-                else
-                    echo "  ⚠️  Failed to update: $tool"
+    # Fisher rewrites its active fish_plugins. Never accept a different file or
+    # branches/tags that can move after review.
+    if not type -q fisher
+        set -a skipped_updates "Fisher: not installed"
+    else if not test -s "$plugin_file"; or test (path resolve "$__fish_config_dir/fish_plugins") != (path resolve "$plugin_file")
+        echo "Fisher: active fish_plugins must be linked to $plugin_file" >&2
+        set -a failed_updates Fisher
+    else
+        set -l plugin_contents (string collect < "$plugin_file")
+        set -l plugins
+        set -l invalid_pins
+        while read -l plugin
+            if not string match -qr '^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+@[0-9a-f]{40}$' -- "$plugin"
+                set -a invalid_pins "$plugin"
+            else
+                set -a plugins "$plugin"
+            end
+        end < "$plugin_file"
+
+        if set -q invalid_pins[1]; or not set -q plugins[1]
+            echo "Fisher: every entry must use a full commit SHA; refusing update" >&2
+            set -a failed_updates Fisher
+        else if set -q _flag_dry_run
+            echo "[dry-run] fisher update using validated commit pins"
+        else
+            set -l needs_update false
+            for plugin in $plugins
+                contains -- "$plugin" $_fisher_plugins; or set needs_update true
+            end
+            test (count $plugins) -eq (count $_fisher_plugins); or set needs_update true
+
+            if test "$needs_update" = true
+                fisher update
+                set -l fisher_status $status
+                # Older Fisher can return success after failed downloads and
+                # remove failed entries from this file. Preserve the manifest.
+                printf '%s\n' "$plugin_contents" > "$plugin_file"; or set fisher_status 1
+                for plugin in $plugins
+                    contains -- "$plugin" $_fisher_plugins; or set fisher_status 1
                 end
-            end
-        end
-        echo ""
-    end
-
-    # Node.js (via Volta)
-    if command -q volta
-        echo "⚡ Updating Node.js via Volta..."
-        if volta install node@lts
-            echo "✅ Node.js LTS updated successfully"
-        else
-            set -a failed_updates "Node.js (Volta)"
-        end
-        echo ""
-    end
-
-    # Python (via pyenv)
-    if command -q pyenv
-        echo "🐍 Checking Python updates..."
-        if command -q pyenv-update
-            if pyenv update
-                echo "✅ Pyenv updated successfully"
+                test (count $plugins) -eq (count $_fisher_plugins); or set fisher_status 1
+                if test $fisher_status -ne 0
+                    set -a failed_updates Fisher
+                else
+                    echo "✅ Fisher pins applied"
+                end
             else
-                set -a failed_updates "Pyenv"
+                echo "✅ Fisher pins already applied"
             end
-        else
-            echo "💡 Tip: Install pyenv-update plugin to update pyenv"
         end
-        echo ""
     end
 
-    # SDKMAN!
-    if test -f "$HOME/.sdkman/bin/sdkman-init.sh"
-        echo "☕ Updating SDKMAN! packages..."
-        bash -c "source $HOME/.sdkman/bin/sdkman-init.sh && sdk update && sdk upgrade"
-        echo ""
-    end
-
-    # Neovim packages
-    if command -q nvim
-        echo "📝 Updating Neovim packages..."
-        echo "  Updating Lazy plugins..."
-        nvim --headless "+Lazy! sync" +qa
-        echo "  Updating Mason packages..."
-        nvim --headless "+MasonUpdate" +qa
-        echo "✅ Neovim packages updated"
-        echo ""
-    end
-
-    # Summary
-    echo "📊 Update Summary:"
-    if test (count $failed_updates) -eq 0
-        echo "✅ All updates completed successfully!"
+    if not command -q nvim
+        set -a skipped_updates "Neovim: not installed"
+    else if not test -s "$repo_root/nvim/lua/plugins/lazy-lock.json"
+        echo "Neovim: reviewed lazy-lock.json is missing" >&2
+        set -a failed_updates Neovim
+    else if set -q _flag_dry_run
+        echo "[dry-run] restore installed Lazy plugins from $repo_root/nvim/lua/plugins/lazy-lock.json"
     else
-        echo "⚠️  The following updates failed:"
-        for item in $failed_updates
-            echo "  - $item"
+        begin
+            set -lx DOTFILES_UPDATE_ROOT "$repo_root"
+            if nvim --headless -u NONE -i NONE -n -l "$repo_root/nvim/scripts/restore-locked.lua"
+                echo "✅ Lazy pins applied"
+            else
+                set -a failed_updates Neovim
+            end
         end
     end
+
+    echo "⏸ Held: Homebrew, Krew, Rustup/Cargo, Go, Volta, pyenv, SDKMAN and Mason."
+    echo "  These need separately reviewed versions; see $repo_root/docs/updates.md."
+    for item in $skipped_updates
+        echo "⏭ $item"
+    end
+    if set -q failed_updates[1]
+        printf '❌ Failed: %s\n' $failed_updates
+        return 1
+    end
+    if set -q _flag_dry_run
+        echo "✅ Dry run complete; nothing installed"
+    else
+        echo "✅ Selected pin applications completed (held/skipped items excluded)"
+    end
+    return 0
 end

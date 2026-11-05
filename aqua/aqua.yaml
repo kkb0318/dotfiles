@@ -1,19 +1,22 @@
 ---
 # aqua - Declarative CLI Version Manager
 # https://aquaproj.github.io/
-# checksum:
-#   enabled: true
-#   require_checksum: true
-#   supported_envs:
-#   - all
+checksum:
+  enabled: true
+  require_checksum: true
+  supported_envs:
+    - darwin/arm64
+    - darwin/amd64
+    - linux/arm64
+    - linux/amd64
 registries:
   - type: standard
-    ref: v4.333.0 # renovate: depName=aquaproj/aqua-registry
+    ref: v4.446.0 # renovate: depName=aquaproj/aqua-registry
 packages:
   - name: BurntSushi/ripgrep@14.1.1
-  - name: denoland/deno@v2.2.6
-  - name: junegunn/fzf@v0.60.3
-  - name: jesseduffield/lazygit@v0.48.0
+  - name: denoland/deno@v2.4.5
+  - name: junegunn/fzf@v0.67.0
+  - name: jesseduffield/lazygit@v0.57.0
   - name: peco/peco@v0.5.11
   - name: rhysd/dotfiles@v0.2.3
   - name: x-motemen/ghq@v1.8.0

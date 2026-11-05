@@ -1,6 +1,11 @@
 {
+  "minimumReleaseAge": "7 days",
+  "minimumReleaseAgeBehaviour": "timestamp-required",
+  "internalChecksFilter": "strict",
+  "dependencyDashboard": true,
   "vulnerabilityAlerts": {
-    "automerge": true,
+    "minimumReleaseAge": "7 days",
+    "automerge": false,
     "labels": [
       "security"
     ]

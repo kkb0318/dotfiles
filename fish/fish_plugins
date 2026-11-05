@@ -1,5 +1,7 @@
-jorgebucaran/fisher
-jethrokuan/fzf
-decors/fish-ghq
-jethrokuan/z
-ilancosman/tide@v5
+jorgebucaran/fisher@791da644d33d392216f6b1a9b5fc1e470db6d7f2
+jethrokuan/fzf@479fa67d7439b23095e01b64987ae79a91a4e283
+decors/fish-ghq@cafaaabe63c124bf0714f89ec715cfe9ece87fa2
+jethrokuan/z@26a50962bc68f5cb60fc488ee008b3d4d5be75f4
+ilancosman/tide@51b0f37307c7bcfa38089c2eddaad0bbb2e20c64
+reitzig/sdkman-for-fish@555203d56e534d91cde87ad600cbbf6f2d112a03
+jorgebucaran/nvm.fish@85cadd56f71b11574566dbd6c32e0027e361d085
