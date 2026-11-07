@@ -33,6 +33,10 @@
           work = configurations.work-mac.activationPackage;
           personal = configurations.personal-mac.activationPackage;
         };
+        x86_64-darwin = {
+          work = (mkHome "x86_64-darwin" ./hosts/work-mac.nix).activationPackage;
+          personal = (mkHome "x86_64-darwin" ./hosts/personal-mac.nix).activationPackage;
+        };
         x86_64-linux = {
           work = configurations.work-wsl.activationPackage;
           personal = configurations.personal-wsl.activationPackage;

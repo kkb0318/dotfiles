@@ -1,0 +1,79 @@
+name: Nix checks
+
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+
+permissions:
+  contents: read
+  actions: read
+  pull-requests: read
+
+jobs:
+  cooldown:
+    name: Nix cooldown
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const { check } = require('./.github/scripts/nix-cooldown.cjs');
+            await check({ github, context, core });
+
+  policy-tests:
+    name: Nix cooldown tests
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - run: node --test tests/test_nix_cooldown.cjs
+
+  build:
+    needs: cooldown
+    name: Nix build (${{ matrix.system }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            system: x86_64-linux
+          - runner: macos-15
+            system: aarch64-darwin
+          - runner: macos-15-intel
+            system: x86_64-darwin
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+      - name: Build work and personal profiles from the committed lock
+        env:
+          NIX_SYSTEM: ${{ matrix.system }}
+        run: |
+          nix build --no-link --no-write-lock-file \
+            "path:./home-manager#checks.${NIX_SYSTEM}.work" \
+            "path:./home-manager#checks.${NIX_SYSTEM}.personal"
+          git diff --exit-code -- home-manager/flake.lock
+
+  required:
+    name: Nix CI
+    if: ${{ always() }}
+    needs: [cooldown, build, policy-tests]
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Require every platform to pass
+        env:
+          BUILD_RESULT: ${{ needs.build.result }}
+          COOLDOWN_RESULT: ${{ needs.cooldown.result }}
+          TEST_RESULT: ${{ needs.policy-tests.result }}
+        run: test "$COOLDOWN_RESULT" = success && test "$BUILD_RESULT" = success && test "$TEST_RESULT" = success

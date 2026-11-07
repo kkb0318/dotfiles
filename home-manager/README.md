@@ -62,7 +62,7 @@ python3 scripts/bootstrap-plugins.py
 
 Neovimプラグインのネイティブビルドは自動実行しない。LuaSnipのjsregexpやMarkdown Previewなどは依存とビルド手順を別途確認する。Fisherのインストールフックは実行する。
 
-Nixのロールバックではプラグインは戻らないため、対応するGit revisionから復元する。更新候補の7日待機と固定方法は[更新方針](../docs/updates.md)を参照。
+Nixのロールバックではプラグインは戻らないため、対応するGit revisionから復元する。Nix更新PRの3日待機と固定方法は[更新方針](../docs/updates.md)を参照。
 
 旧セットアップからの対応状況とOS側の任意手順は[移行表](../docs/legacy-setup-migration.md)を参照。
 

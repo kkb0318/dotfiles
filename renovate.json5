@@ -11,7 +11,19 @@
     ]
   },
   "nix": {
-    "enabled": true
+    "enabled": true,
+    "minimumReleaseAge": "0 days",
+    "timezone": "Asia/Tokyo",
+    "schedule": ["before 6am on monday"],
+    "updateNotScheduled": false,
+    "rebaseWhen": "conflicted",
+    "lockFileMaintenance": {
+      "enabled": true,
+      "schedule": ["before 6am on monday"]
+    },
+    "prBodyNotes": [
+      "Nix updates wait 3 days from this PR revision's first CI run before building. New commits restart the wait. Nix CI must pass before merging."
+    ]
   },
   "labels": [
     "dependencies",
