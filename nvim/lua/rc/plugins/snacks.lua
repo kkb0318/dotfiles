@@ -18,6 +18,13 @@ local spec = {
       dim = { enabled = true },
     },
     keys = {
+      -- Existing mappings retained from the ddu setup
+      { ";a", function() Snacks.picker.files() end, desc = "Find Files" },
+      { ";f", function() Snacks.picker.files() end, desc = "Find Files" },
+      { ";r", function() Snacks.picker.grep() end, desc = "Grep" },
+      { ";h", function() Snacks.picker.help() end, desc = "Help Pages" },
+      { "q:", function() Snacks.picker.command_history() end, desc = "Command History" },
+      { "q/", function() Snacks.picker.search_history() end, desc = "Search History" },
       -- Top Pickers & Explorer
       { "<leader><space>", function() Snacks.picker.smart() end, desc = "Smart Find Files" },
       { "<leader>,", function() Snacks.picker.buffers() end, desc = "Buffers" },
