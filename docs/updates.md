@@ -43,6 +43,6 @@ python3 scripts/bootstrap-plugins.py
 
 LuaSnipのjsregexpやMarkdown Preview等、追加ビルドが必要な機能は依存と取得元を確認して別途ビルドする。通常起動時のLazyの不足プラグイン取得とMasonの自動導入は無効。
 
-Homebrew、Krew、Rustup/Cargo、Go、Volta、pyenv、SDKMAN、Masonの一括更新は`update`から呼ばない。追加ツールは用途別Nixモジュールやプロジェクトの環境で管理する。
+Homebrew、Krew、Rustup/Cargo、Go、Volta、pyenv、Masonの一括更新は`update`から呼ばない。追加ツールは用途別Nixモジュールやプロジェクトの環境で管理する。
 
 参照: [Renovate Nix manager](https://docs.renovatebot.com/modules/manager/nix/)、[旧セットアップの移行表](legacy-setup-migration.md)。

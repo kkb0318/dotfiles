@@ -91,7 +91,7 @@ function update --inherit-variable __dotfiles_update_root --description "Apply r
         end
     end
 
-    echo "⏸ Held: Homebrew, Krew, Rustup/Cargo, Go, Volta, pyenv, SDKMAN and Mason."
+    echo "⏸ Held: Homebrew, Krew, Rustup/Cargo, Go, Volta, pyenv and Mason."
     echo "  These need separately reviewed versions; see $repo_root/docs/updates.md."
     for item in $skipped_updates
         echo "⏭ $item"
