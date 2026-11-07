@@ -62,7 +62,9 @@ Neovimは`-u NONE`で専用スクリプトを実行し、既存のlazy.nvimを�
 `nvim/lua/plugins/lazy-lock.json`のコミットへ復元します。普段の設定やMasonの
 自動インストール処理は読み込みません。未導入プラグイン、ビルドフック、LuaRocks
 依存の取得は保留します。これらが必要なプラグインは、依存のバージョンや取得元を
-別途確認して導入・ビルドしてください。初回のlazy.nvim自体も別途導入が必要です。
+別途確認して導入・ビルドしてください。初回導入と未導入プラグインの固定復元には
+`python3 scripts/bootstrap-plugins.py`を使います。管理ツール自身もSHA固定し、
+`nvim/plugin-sources.json`とlockが一致していることを検査します。
 Git/Lazyのエラーと復元後のHEADを検査し、元のlockfileを維持します。
 
 ## 保留する管理ツール
@@ -76,8 +78,12 @@ Homebrew、Krew、Rustup/Cargo、Go、Volta、pyenv、SDKMAN、Masonの一括更
 - Homebrewは依存パッケージを含む待機期間をこの仕組みでは保証できません。
   自動更新間隔の変更や週1回の実行は、公開から7日待つ設定にはなりません。
 
-この方針の対象は`update`と上記の固定ファイルです。既存の`setup.sh`、通常起動時の
-Neovimの自動導入、各ツールの直接実行まで制限するものではありません。
+Nix本体パッケージは`update-nix`で既存の`home-manager/flake.lock`を適用します。
+初回は`bash setup.sh --nix <構成名>`を使います。詳しくは[セットアップ手順](../home-manager/README.md)を参照してください。
+これらの適用コマンドは新しいバージョンを選定せず、公開日時の検証も実施しません。
+候補を固定ファイルに反映する前に7日待機を確認します。
+通常のNeovim起動ではLazyの不足プラグイン取得とMasonの自動導入を停止しました。
+`--nix`なしの旧`setup.sh`や各ツールの直接実行は、この固定適用の対象外です。
 
 ## 検証
 

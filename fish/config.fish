@@ -63,3 +63,12 @@ function pyenv_run
 end
 
 # update function moved to fish/functions/update.fish
+
+# Prefer the selected Home Manager generation over the legacy managers above.
+# direnv may still select a project environment at the prompt.
+for profile in "$HOME/.nix-profile" "$HOME/.local/state/nix/profiles/profile" "/etc/profiles/per-user/$USER"
+    if test -d "$profile/bin"
+        fish_add_path --path --prepend --move "$profile/bin"
+        break
+    end
+end

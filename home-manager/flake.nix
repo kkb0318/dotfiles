@@ -1,5 +1,5 @@
 {
-  description = "Home Manager configuration of kkb";
+  description = "Shared dotfiles with optional work/personal packages on macOS and WSL";
 
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
@@ -13,19 +13,30 @@
   outputs =
     { nixpkgs, home-manager, ... }:
     let
-      system = "aarch64-darwin";
-      pkgs = nixpkgs.legacyPackages.${system};
+      mkHome = system: host:
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs { inherit system; };
+          modules = [ host ];
+        };
+      configurations = {
+        work-mac = mkHome "aarch64-darwin" ./hosts/work-mac.nix;
+        personal-mac = mkHome "aarch64-darwin" ./hosts/personal-mac.nix;
+        work-wsl = mkHome "x86_64-linux" ./hosts/work-wsl.nix;
+        personal-wsl = mkHome "x86_64-linux" ./hosts/personal-wsl.nix;
+      };
     in
     {
-      homeConfigurations."kkb" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-
-        # Specify your home configuration modules here, for example,
-        # the path to your home.nix.
-        modules = [ ./home.nix ];
-
-        # Optionally use extraSpecialArgs
-        # to pass through arguments to home.nix
+      # Keep the original entry point working during the migration.
+      homeConfigurations = configurations // { kkb = configurations.personal-mac; };
+      checks = {
+        aarch64-darwin = {
+          work = configurations.work-mac.activationPackage;
+          personal = configurations.personal-mac.activationPackage;
+        };
+        x86_64-linux = {
+          work = configurations.work-wsl.activationPackage;
+          personal = configurations.personal-wsl.activationPackage;
+        };
       };
     };
 }

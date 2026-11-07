@@ -9,7 +9,8 @@ local spec = {
       {
         "williamboman/mason.nvim",
         config = function()
-          require("mason").setup()
+          -- Keep Nix-provided tools ahead of any previously installed binaries.
+          require("mason").setup({ PATH = "append" })
         end,
       },
       -- "williamboman/mason-lspconfig.nvim",
@@ -44,7 +45,6 @@ local spec = {
         "gopls",
         "ts_ls",
         "efm",
-        "pyright",
         "yamlls",
         "cssls",
         "denols",
@@ -57,26 +57,9 @@ local spec = {
         "helm_ls",
       }
 
-      local tools       = {
-        -- Formatter
-        "prettier",
-        "jq",
-        -- Linter
-        "rstcheck",
-        "eslint_d",
-        "jsonlint",
-      }
-
       vim.lsp.enable(lsp_servers)
-
-      -- ensure tools (except LSPs) are installed
-      local mr = require("mason-registry")
-      for _, tool in ipairs(tools) do
-        local p = mr.get_package(tool)
-        if not p:is_installed() then
-          p:install()
-        end
-      end
+      -- External tools are selected explicitly in Nix (or a project shell).
+      -- Opening a file must not download the latest formatter/linter via Mason.
 
       -- LSP Saga settings
       local saga = require("lspsaga")

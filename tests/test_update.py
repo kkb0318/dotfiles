@@ -240,6 +240,12 @@ LAZY_SOURCE = Path(os.environ.get("XDG_DATA_HOME", str(Path.home() / ".local/sha
 @unittest.skipUnless(NVIM and shutil.which("git") and (LAZY_SOURCE / ".git").is_dir(), "installed Lazy source required")
 class RealLazyTest(unittest.TestCase):
     def test_restore_local_git_repo_without_running_plugin_or_build_hooks(self):
+        self.exercise_restore(bootstrap=False)
+
+    def test_bootstrap_missing_plugin_from_lock_without_hooks(self):
+        self.exercise_restore(bootstrap=True)
+
+    def exercise_restore(self, bootstrap):
         with tempfile.TemporaryDirectory(prefix="lazy integration ") as tmp:
             base = Path(tmp).resolve()
             repo = base / "repo"
@@ -276,10 +282,18 @@ class RealLazyTest(unittest.TestCase):
             first = commit()
             (origin / "new.txt").write_text("new")
             commit()
-            git("clone", "--quiet", origin, plugins / "example")
+            if not bootstrap:
+                git("clone", "--quiet", origin, plugins / "example")
+            else:
+                # Redirect a reviewed GitHub source to the offline fixture.
+                env.update(DOTFILES_BOOTSTRAP_PLUGINS="1", GIT_CONFIG_COUNT="1",
+                           GIT_CONFIG_KEY_0="url." + str(origin) + ".insteadOf",
+                           GIT_CONFIG_VALUE_0="https://github.com/fixture/example.git")
             lockfile = repo / "nvim/lua/plugins/lazy-lock.json"
             lockfile.parent.mkdir(parents=True)
             lockfile.write_text(json.dumps({"lazy.nvim": {"commit": lazy_commit}, "example": {"commit": first}}) + "\n")
+            (repo / "nvim/plugin-sources.json").write_text(json.dumps({
+                "lazy.nvim": "folke/lazy.nvim", "example": "fixture/example"}))
             before = lockfile.read_bytes()
             result = subprocess.run([NVIM, "--headless", "-u", "NONE", "-i", "NONE", "-n", "-l",
                                      str(ROOT / "nvim/scripts/restore-locked.lua")], env=env,

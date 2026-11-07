@@ -1,4 +1,10 @@
 #!/bin/bash
+# Nix setup uses only the existing flake lock and reviewed plugin pins.
+if [ "${1:-}" = "--nix" ]; then
+  shift
+  exec bash "$(cd -- "$(dirname -- "$0")" && pwd -P)/scripts/setup-nix.sh" "$@"
+fi
+# Legacy Homebrew/Aqua setup below; do not use it for the Nix profile.
 
 AQUA_VERSION=v3.0.1
 XDG_CONFIG_HOME=$HOME/.config
