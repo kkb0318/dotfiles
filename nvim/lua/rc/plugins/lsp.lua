@@ -47,7 +47,6 @@ local spec = {
         "efm",
         "yamlls",
         "cssls",
-        "denols",
         "jsonls",
         "clangd",
         "terraformls",

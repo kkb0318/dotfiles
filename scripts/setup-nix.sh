@@ -40,5 +40,6 @@ mkdir -p -- "$state_dir"
 printf '%s\n' "$host" > "$state_dir/nix-host"
 if [[ $mode != --packages-only ]]; then
     python3 "$repo/scripts/bootstrap-plugins.py"
+    fish --no-config -c fish_update_completions
 fi
 echo "Applied $host from the existing lock. Open a new Fish session to use the Nix PATH."

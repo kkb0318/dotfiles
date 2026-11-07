@@ -17,6 +17,8 @@
     fzf
     ghq
     ripgrep
+    lazygit
+    peco
   ];
   programs.home-manager.enable = true;
   # Preserve the existing direnv setup and its hook in fish/config.fish.

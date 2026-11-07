@@ -9,6 +9,7 @@ import os
 from pathlib import Path
 import re
 import subprocess
+import sys
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -51,13 +52,34 @@ def read_pins(root):
     return managers[0], lock
 
 
-def config_links(root, config_home):
-    links = [(root / name, config_home / name) for name in ("fish", "nvim", "tmux")]
+def config_links(root, config_home, home=None, platform=None):
+    home = Path.home() if home is None else home
+    platform = sys.platform if platform is None else platform
+    # This replaces rhysd/dotfiles; keep writable checkouts for plugin managers.
+    mapping = json.loads((root / "config-links.json").read_text())
+    entries = mapping["common"] + mapping.get(platform, [])
+    links = []
+    for item in entries:
+        source = root / item["source"]
+        base = config_home if item["base"] == "config" else home
+        target = base / item["target"]
+        if (item["base"] not in ("config", "home") or Path(item["source"]).is_absolute()
+                or Path(item["target"]).is_absolute() or ".." in Path(item["source"]).parts
+                or ".." in Path(item["target"]).parts or not source.exists()):
+            raise ValueError(f"Invalid configuration mapping: {item}")
+        links.append((source, target))
     # Validate all destinations before creating any links.
     for source, target in links:
         if (target.exists() or target.is_symlink()) and target.resolve() != source.resolve():
             raise ValueError(f"Existing config is not this checkout: {target}. Move it aside explicitly first.")
     return links
+
+
+def apply_config_links(links):
+    for source, target in links:
+        target.parent.mkdir(parents=True, exist_ok=True)
+        if not target.is_symlink() and not target.exists():
+            target.symlink_to(source, target_is_directory=source.is_dir())
 
 
 def checkout_pin(directory, url, commit):
@@ -110,6 +132,7 @@ exit $result
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true")
+    parser.add_argument("--configs-only", action="store_true", help="link settings without fetching plugins")
     args = parser.parse_args()
     if os.environ.get("NVIM_APPNAME", "nvim") != "nvim":
         raise ValueError("This bootstrap manages the default nvim application only")
@@ -120,10 +143,10 @@ def main():
     if args.check:
         print("Pinned manifests and configuration destinations are valid.")
         return
-    for source, target in links:
-        target.parent.mkdir(parents=True, exist_ok=True)
-        if not target.is_symlink() and not target.exists():
-            target.symlink_to(source, target_is_directory=True)
+    apply_config_links(links)
+    if args.configs_only:
+        print("Configuration links are ready.")
+        return
     lazy_path = data_home / "nvim/lazy/lazy.nvim"
     checkout_pin(lazy_path, "https://github.com/folke/lazy.nvim.git", lock["lazy.nvim"]["commit"])
     # Source the verified Fisher before invoking it. Use a normal Fish session:

@@ -25,9 +25,6 @@ class UpdateTest(unittest.TestCase):
         self.script = self.repo / "fish/conf.d/custom/update.fish"
         self.script.parent.mkdir(parents=True)
         shutil.copyfile(ROOT / "fish/conf.d/custom/update.fish", self.script)
-        (self.repo / "aqua").mkdir()
-        (self.repo / "aqua/aqua.yaml").write_text("packages: []\n")
-        (self.repo / "aqua/aqua-checksums.json").write_text('{"checksums": []}\n')
         (self.repo / "nvim/lua/plugins").mkdir(parents=True)
         (self.repo / "nvim/lua/plugins/lazy-lock.json").write_text("{}\n")
         self.manifest = self.repo / "fish/fish_plugins"
@@ -85,10 +82,7 @@ source "$argv[1]"
     def test_apply_uses_explicit_pins_and_never_calls_held_managers(self):
         result = self.run_update()
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
-        aqua, nvim = self.calls()
-        self.assertEqual(aqua["name"], "aqua")
-        self.assertEqual(aqua["args"], ["-c", str(self.repo / "aqua/aqua.yaml"), "install"])
-        self.assertEqual((aqua["checksum"], aqua["require_checksum"]), ("true", "true"))
+        nvim, = self.calls()
         self.assertEqual(nvim["name"], "nvim")
         self.assertEqual(nvim["root"], str(self.repo))
         self.assertIn("NONE", nvim["args"])
@@ -101,12 +95,12 @@ source "$argv[1]"
         self.assertFalse(Path(str(self.log) + ".fisher").exists())
 
     def test_all_failures_are_reported_and_remaining_managers_run(self):
-        self.env["UPDATE_TEST_FAIL"] = "aqua,nvim"
+        self.env["UPDATE_TEST_FAIL"] = "nvim"
         result = self.run_update(mode="failure")
         self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
-        for name in ["Aqua", "Fisher", "Neovim"]:
+        for name in ["Fisher", "Neovim"]:
             self.assertIn("Failed: " + name, result.stdout)
-        self.assertEqual(len(self.calls()), 2)
+        self.assertEqual(len(self.calls()), 1)
 
     def test_fisher_false_success_preserves_manifest_and_fails(self):
         result = self.run_update(mode="partial")
@@ -127,18 +121,12 @@ source "$argv[1]"
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertFalse(Path(str(self.log) + ".fisher").exists())
 
-    def test_missing_checksums_fail_without_aqua_install(self):
-        (self.repo / "aqua/aqua-checksums.json").unlink()
-        result = self.run_update()
-        self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
-        self.assertNotIn("aqua", [call["name"] for call in self.calls()])
-
     def test_missing_managers_are_explicitly_skipped(self):
-        for name in ["aqua", "nvim"]:
+        for name in ["nvim"]:
             (self.bin / name).unlink()
         result = self.run_update(prelude="functions -e fisher")
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertEqual(result.stdout.count("not installed"), 3)
+        self.assertEqual(result.stdout.count("not installed"), 2)
         self.assertEqual(self.calls(), [])
 
     def test_source_symlink_and_unrelated_cwd_resolve_repository(self):
@@ -146,12 +134,12 @@ source "$argv[1]"
         link.symlink_to(self.script)
         result = self.run_update(script=link)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
-        self.assertEqual(self.calls()[0]["args"][1], str(self.repo / "aqua/aqua.yaml"))
+        self.assertEqual(self.calls()[0]["root"], str(self.repo))
 
     def test_relative_source_survives_a_later_directory_change(self):
         result = self.run_update(script=self.script.relative_to(self.base), prelude="cd /")
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
-        self.assertEqual(self.calls()[0]["args"][1], str(self.repo / "aqua/aqua.yaml"))
+        self.assertEqual(self.calls()[0]["root"], str(self.repo))
 
     def test_fisher_refuses_an_unrelated_active_manifest(self):
         active = self.base / "config/fish"

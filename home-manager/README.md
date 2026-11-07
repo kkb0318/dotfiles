@@ -10,10 +10,10 @@ Nixをインストールし、`nix-command flakes`を有効にする。リポジ
 
 ```sh
 # ビルド確認
-bash setup.sh --nix personal-mac --build-only
+bash scripts/setup-nix.sh personal-mac --build-only
 
 # パッケージ適用・設定配置・固定プラグインの復元
-bash setup.sh --nix personal-mac
+bash scripts/setup-nix.sh personal-mac
 ```
 
 | 構成 | OS | 用途 |
@@ -23,7 +23,7 @@ bash setup.sh --nix personal-mac
 | `personal-wsl` | WSL / x86_64 Linux | 私用 |
 | `work-wsl` | WSL / x86_64 Linux | 社用 |
 
-Fish・Neovim・tmuxの設定をチェックアウトへリンクする。別の設定がある場合は上書きせず停止する。適用後はFishを起動し直す。ログインシェル、Windowsホスト、OSサービスの設定は変更しない。
+`config-links.json`に従い設定をチェックアウトへリンクする。別の設定がある場合は上書きせず停止する。適用後はFishを起動し直す。MacではFinder / Dock等のユーザー設定も適用する。ログインシェルとWindowsホストは変更しない。
 
 ## パッケージの追加
 
@@ -41,7 +41,7 @@ Fish・Neovim・tmuxの設定をチェックアウトへリンクする。別の
 }
 ```
 
-共通構成には本体5種に加え、Git・curl・fzf・ghq・ripgrep・gopls・ruff・direnvを含む。
+共通構成には本体5種に加え、Git・curl・fzf・ghq・ripgrep・lazygit・peco・gopls・ruff・direnvを含む。
 
 ## 更新と復元
 
@@ -51,7 +51,7 @@ update-nix personal-mac
 update-nix  # 最後に適用した構成を使用
 ```
 
-`update-nix`は既存の`flake.lock`からパッケージだけを適用する。新しいバージョンの選定は行わない。初回導入を含むプラグインの復元は次を使う。
+`update-nix`は既存の`flake.lock`からHome Managerのパッケージと設定を適用する。新しいバージョンの選定やプラグインの復元は行わない。初回導入を含むプラグインの復元は次を使う。
 
 ```sh
 python3 scripts/bootstrap-plugins.py --check
@@ -64,11 +64,13 @@ Neovimプラグインのネイティブビルドは自動実行しない。LuaSn
 
 Nixのロールバックではプラグインは戻らないため、対応するGit revisionから復元する。更新候補の7日待機と固定方法は[更新方針](../docs/updates.md)を参照。
 
+旧セットアップからの対応状況とOS側の任意手順は[移行表](../docs/legacy-setup-migration.md)を参照。
+
 ## 検証
 
 ```sh
 python3 -m unittest discover -s tests -p 'test_*.py'
-bash setup.sh --nix personal-mac --build-only
+bash scripts/setup-nix.sh personal-mac --build-only
 ```
 
 Macでビルドと隔離環境でのプラグイン復元・起動を確認済み。WSLは構成評価までで、実機検証は未実施。

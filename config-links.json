@@ -1,0 +1,18 @@
+{
+  "common": [
+    { "source": "fish", "base": "config", "target": "fish" },
+    { "source": "nvim", "base": "config", "target": "nvim" },
+    { "source": "tmux", "base": "config", "target": "tmux" },
+    { "source": "bash/.bashrc", "base": "home", "target": ".bashrc" },
+    { "source": "git", "base": "config", "target": "git" },
+    { "source": "lazygit", "base": "config", "target": "lazygit" },
+    { "source": "peco", "base": "config", "target": "peco" },
+    { "source": "nix", "base": "config", "target": "nix" },
+    { "source": "home-manager", "base": "config", "target": "home-manager" }
+  ],
+  "darwin": [
+    { "source": "aerospace", "base": "config", "target": "aerospace" },
+    { "source": "wezterm", "base": "config", "target": "wezterm" },
+    { "source": "ghostty", "base": "config", "target": "ghostty" }
+  ]
+}

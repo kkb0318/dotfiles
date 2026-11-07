@@ -10,9 +10,9 @@
       "security"
     ]
   },
-  "extends": [
-    "github>aquaproj/aqua-renovate-config#2.7.5"
-  ],
+  "nix": {
+    "enabled": true
+  },
   "labels": [
     "dependencies",
     "renovate"
@@ -25,6 +25,10 @@
       ],
       "matchCurrentVersion": "!/^0/",
       "automerge": true
+    },
+    {
+      "matchManagers": ["nix"],
+      "automerge": false
     }
   ]
 }

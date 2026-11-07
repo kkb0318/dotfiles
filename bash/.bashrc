@@ -1,9 +1,7 @@
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
 # PATH
-export XDG_CONFIG_HOME="$HOME/.config"
-export AQUA_ROOT_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua"
-export AQUA_BIN_PATH="${AQUA_ROOT_DIR}/bin"
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 export LOCALBIN="$HOME/.local/bin"
 export HOMEBREW_X86_64_BIN="/usr/local/bin"
 export HOMEBREW_ARM_BIN="/opt/homebrew/bin"
@@ -11,8 +9,11 @@ export HOMEBREW_LINUX_BIN="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linux
 export CURLBIN="/usr/local/opt/curl/bin"
 
 PATH=${HOMEBREW_ARM_BIN}:${HOMEBREW_X86_64_BIN}:${HOMEBREW_LINUX_BIN}:${LOCALBIN}:/usr/bin:/bin:/opt/local/sbin:${PATH}
-PATH=${AQUA_BIN_PATH}:${CURLBIN}:${PATH}
+PATH=${CURLBIN}:${PATH}
 
-# aqua
-export AQUA_GLOBAL_CONFIG=${AQUA_GLOBAL_CONFIG:-}:${XDG_CONFIG_HOME:-$HOME/.config}/aquaproj-aqua/aqua.yaml
-
+for profile in "$HOME/.nix-profile" "${XDG_STATE_HOME:-$HOME/.local/state}/nix/profiles/profile" "/etc/profiles/per-user/$(id -un)"; do
+    if [ -d "$profile/bin" ]; then
+        export PATH="$profile/bin:$PATH"
+        break
+    fi
+done

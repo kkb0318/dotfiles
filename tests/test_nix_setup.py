@@ -81,9 +81,36 @@ end
             sentinel = config / "nvim/init.lua"
             sentinel.write_text("keep")
             with self.assertRaisesRegex(ValueError, "Existing config"):
-                bootstrap.config_links(ROOT, config)
+                bootstrap.config_links(ROOT, config, home=config.parent, platform="linux")
             self.assertFalse((config / "fish").exists())
             self.assertEqual(sentinel.read_text(), "keep")
+
+    def test_all_legacy_links_are_replaced_and_platforms_are_separate(self):
+        with tempfile.TemporaryDirectory() as temp:
+            home = Path(temp)
+            config = home / "custom-xdg"
+            linux = bootstrap.config_links(ROOT, config, home=home, platform="linux")
+            mac = bootstrap.config_links(ROOT, config, home=home, platform="darwin")
+            self.assertEqual({target for _, target in linux},
+                             {config / name for name in ["fish", "nvim", "tmux", "git", "lazygit", "peco", "nix", "home-manager"]}
+                             | {home / ".bashrc"})
+            self.assertEqual({t for _, t in mac} - {t for _, t in linux},
+                             {config / name for name in ["aerospace", "wezterm", "ghostty"]})
+            bootstrap.apply_config_links(linux)
+            for source, target in linux:
+                self.assertEqual(target.resolve(), source.resolve())
+            # Applying a second time must leave existing correct links alone.
+            bootstrap.apply_config_links(bootstrap.config_links(ROOT, config, home=home, platform="linux"))
+
+    def test_late_config_collision_does_not_partially_link_other_settings(self):
+        with tempfile.TemporaryDirectory() as temp:
+            home = Path(temp)
+            config = home / ".config"
+            (config / "git").mkdir(parents=True)
+            with self.assertRaisesRegex(ValueError, "Existing config"):
+                bootstrap.config_links(ROOT, config, home=home, platform="linux")
+            self.assertFalse((config / "fish").exists())
+            self.assertFalse((home / ".bashrc").exists())
 
     def test_checkout_uses_exact_commit_and_preserves_local_changes(self):
         with tempfile.TemporaryDirectory(prefix="pin checkout ") as temp:

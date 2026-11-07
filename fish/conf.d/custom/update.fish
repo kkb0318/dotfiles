@@ -6,7 +6,7 @@ function update --inherit-variable __dotfiles_update_root --description "Apply r
     argparse h/help n/dry-run -- $argv; or return 2
     if set -q _flag_help
         echo "Usage: update [--dry-run]"
-        echo "Apply reviewed Aqua, Fisher and Lazy pins. See docs/updates.md."
+        echo "Apply reviewed Fisher and Lazy pins. Use update-nix for packages. See docs/updates.md."
         return 0
     end
     if set -q argv[1]
@@ -17,29 +17,9 @@ function update --inherit-variable __dotfiles_update_root --description "Apply r
     set -l repo_root "$__dotfiles_update_root"
     set -l failed_updates
     set -l skipped_updates
-    set -l aqua_config "$repo_root/aqua/aqua.yaml"
     set -l plugin_file "$repo_root/fish/fish_plugins"
 
     echo "Applying reviewed pins (version selection happens before this command)."
-
-    if not command -q aqua
-        set -a skipped_updates "Aqua: not installed"
-    else if not test -s "$aqua_config"; or not test -s "$repo_root/aqua/aqua-checksums.json"
-        echo "Aqua: configuration or reviewed checksums are missing" >&2
-        set -a failed_updates Aqua
-    else if set -q _flag_dry_run
-        echo "[dry-run] aqua -c $aqua_config install (checksums required)"
-    else
-        begin
-            set -lx AQUA_ENFORCE_CHECKSUM true
-            set -lx AQUA_ENFORCE_REQUIRE_CHECKSUM true
-            if aqua -c "$aqua_config" install
-                echo "✅ Aqua pins applied"
-            else
-                set -a failed_updates Aqua
-            end
-        end
-    end
 
     # Fisher rewrites its active fish_plugins. Never accept a different file or
     # branches/tags that can move after review.
