@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   retry:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     timeout-minutes: 10
     steps:
       # Only the default branch code runs with Actions write permission.
