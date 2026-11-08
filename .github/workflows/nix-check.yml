@@ -15,7 +15,7 @@ jobs:
     name: Nix cooldown
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
       - uses: actions/github-script@v7
@@ -28,7 +28,7 @@ jobs:
     name: Nix cooldown tests
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
       - run: node --test tests/test_nix_cooldown.cjs
@@ -49,7 +49,7 @@ jobs:
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 60
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
       - uses: cachix/install-nix-action@v31
