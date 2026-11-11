@@ -3,6 +3,7 @@
     { "source": "fish", "base": "config", "target": "fish" },
     { "source": "nvim", "base": "config", "target": "nvim" },
     { "source": "tmux", "base": "config", "target": "tmux" },
+    { "source": "herdr", "base": "config", "target": "herdr" },
     { "source": "bash/.bashrc", "base": "home", "target": ".bashrc" },
     { "source": "git", "base": "config", "target": "git" },
     { "source": "lazygit", "base": "config", "target": "lazygit" },
