@@ -1,0 +1,54 @@
+onboarding = false
+# Herdr equivalents for the first seven tmux migration items.
+
+[keys]
+prefix = "ctrl+t"
+
+# prefix+g is used by lazygit below, and prefix+s is Herdr's Settings action, so use prefix+f.
+goto = "prefix+f"
+
+# Pane navigation (same prefix+h/j/k/l muscle memory as tmux).
+focus_pane_left = "prefix+h"
+focus_pane_down = "prefix+j"
+focus_pane_up = "prefix+k"
+focus_pane_right = "prefix+l"
+
+# Herdr's split actions are named for the divider orientation:
+# vertical = side-by-side; horizontal = stacked.
+# Herdr currently uses v and minus for these actions.
+split_vertical = "prefix+v"
+split_horizontal = "prefix+\""
+
+# tmux's S-Left/S-Right bindings move the active window in the tab order.
+move_tab_previous = "shift+left"
+move_tab_next = "shift+right"
+
+# tmux resize bindings were prefix + Ctrl+h/j/k/l.
+resize_pane_left = "prefix+ctrl+h"
+resize_pane_down = "prefix+ctrl+j"
+resize_pane_up = "prefix+ctrl+k"
+resize_pane_right = "prefix+ctrl+l"
+
+# Enter Herdr's built-in vi-like copy mode with the familiar tmux binding.
+copy_mode = "prefix+["
+
+[[keys.command]]
+key = "prefix+g"
+type = "popup"
+command = "lazygit"
+description = "Open Lazygit"
+width = "80%"
+height = "80%"
+
+[ui]
+# Herdr captures mouse input for pane selection, divider dragging and scrolling.
+mouse_capture = true
+# Preserve tmux-yank-like convenience for mouse drag and double-click selection.
+copy_on_select = true
+
+[ui.sound]
+enabled = false
+
+[theme]
+name = "tokyo-night"
+auto_switch = false
